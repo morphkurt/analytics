@@ -1,3 +1,4 @@
+
 videojs.registerPlugin('AdobeConviva', function (options) {
 
 
@@ -20,15 +21,17 @@ videojs.registerPlugin('AdobeConviva', function (options) {
     var mediaPlayerName = window.location.hostname;
     var currentTime;
     var isPlaying = false;
+    var videoEnd = false;
 
     var metadata = {};
     convivaHelper = new ConvivaHelper(options);
     convivaHelper.initializeConviva();
     convivaHelper._testingEnvironment = prod; // set to false in production 
-    //  var viewerID = "random:" + Math.random() * 1e9;;
+    var viewerID = s.visitor.getMarketingCloudVisitorID();
 
     function ABDMediaOPEN() {
         log("++ IN ABDMediaOPEN TOP ++", prod);
+
         //Check the metadata is loaded
         if (isContentLoaded) {
             log("++ IN ABDMediaOPEN content loaded ++", prod);
@@ -52,7 +55,14 @@ videojs.registerPlugin('AdobeConviva', function (options) {
             metadata["channel"] = window.location.hostname;
             metadata["playerName"] = getPlayerName();
 
-            metadata["viewerID"] = s.visitor.getMarketingCloudVisitorID();
+            metadata["viewerID"] = viewerID;
+
+            //createConvivaSession
+            userData = {}
+            userData["id"] = viewerID;
+            convivaHelper.createConvivaSession(userData, metadata);
+            convivaHelper.attachPlayerToSession();
+
             //add all custom fields 
             Object.assign(metadata, myPlayer.mediainfo.customFields);
 
@@ -74,6 +84,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
     function resetVariables() {
         isContentLoaded = false;
         videoDuration = currentTime = "";
+        videoEnd = true;
     }
 
     myPlayer.on('loadstart', function () {
@@ -92,19 +103,27 @@ videojs.registerPlugin('AdobeConviva', function (options) {
         //Check if metadata loaded - needed to make sure correct video media module instance is tracked.
         if (isContentLoaded) {
             //conviva data
+            //userData = {}
+            //userData["id"] = viewerID;
+            //convivaHelper.createConvivaSession(userData, metadata);
+            //convivaHelper.attachPlayerToSession();
         }
     });
 
     myPlayer.on('play', function () {
         log("++Played - " + myPlayer.mediainfo.name, prod);
         isPlaying = true;
+
+        if (videoEnd) {
+            videoEnd = false;
+            isContentLoaded = true;
+            ABDMediaOPEN();
+        }
+
+
+
         //Check if metadata loaded - needed to make sure correct video media module instance is tracked.
         if (isContentLoaded) {
-            ABDMediaOPEN();
-            userData = {}
-            userData["id"] = s.visitor.getMarketingCloudVisitorID();
-            convivaHelper.createConvivaSession(userData, metadata);
-            convivaHelper.attachPlayerToSession();
             currentTime = myPlayer.currentTime();
             //Play Adobe Analytics Media module from the current head.
             s.eVar63 = mediaName;
