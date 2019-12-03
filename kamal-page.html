@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>AFL - Brightcove New Player - Video Milestone</title>
+		<h1>AFL - Brightcove New Player - Video Milestone</h1>
+		<link rel="stylesheet" href="style/brightcove.css" />
+		<!-- add in the DTM code -->
+		<script src="//assets.adobedtm.com/b115bc50b73a685b73a5ec23570f976910498851/satelliteLib-e77072e2e4da7eea0556fdc8c500cab830c90752.js"></script>
+
+	</head>
+	<body>
+		<!-- add in the video player code -->
+		<!--video 
+			data-playlist-id="3565704820001"
+			data-VideoId="6083944132001"
+			data-account="1863355773"
+			data-player="NyrXJe22g"
+			data-embed="default"
+			class="video-js"
+			controls
+			style="width: 500px; height: 281.25px;"></video>
+			
+		<script src="//players.brightcove.net/1863355773/NyrXJe22g_default/index.min.js"></script><ol class="vjs-playlist"></ol>
+		
+				<!-- add in the video player 2 code -->
+
+		<!--video-js
+        data-account="6076300361001"
+        data-video-Id="6088900645001"
+        data-player="default"
+        data-embed="default"
+        data-application-id=""
+        class="video-js vjs-default-skin"
+        controls
+		style="width: 500px; height: 281.25px;">
+        >
+    </video-js>
+     
+     		<!-- add in the video player 3 code -->
+
+     	<video-js
+        data-account="6057984922001"
+        data-video-Id="6102917521001"
+        data-player="default"
+        data-embed="default"
+        data-application-id=""
+        class="video-js vjs-default-skin"
+        controls
+		style="width: 500px; height: 281.25px;">
+    </video-js>
+    
+    <script src="//players.brightcove.net/6057984922001/default_default/index.min.js"></script-->
+    
+    
+	</body>
+	<!-- add in the DTM code -->
+	<script type="text/javascript">_satellite.pageBottom();</script>
+
+  <div id="logger" style="border: 1px solid gray; padding: 5px 10px;  border-radius: 5px;  width: 95% !important; background-color: #efefef;overflow:scroll; height:200px;"></div>
+
+	<script type="text/javascript">
+	var _satelliteyo = _satellite.notify;
+        var logger = document.getElementById("logger");
+
+ _satellite.notify = function(text)
+        {
+            
+			var element = document.createElement("div");
+            var txt = document.createTextNode(text);
+
+            element.appendChild(txt);
+            logger.appendChild(element);
+			logger.scrollTop = logger.scrollHeight;
+            return _satelliteyo(text);
+        }
+  	</script>
+
+</html>

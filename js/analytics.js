@@ -24,7 +24,7 @@
         convivaHelper = new ConvivaHelper(options);
         convivaHelper.initializeConviva();
         convivaHelper._testingEnvironment = prod; // set to false in production 
-        var viewerID = "random:" + Math.random() * 1e9;;
+      //  var viewerID = "random:" + Math.random() * 1e9;;
     
         function ABDMediaOPEN() {
             console.log("++ IN ABDMediaOPEN TOP ++");
@@ -51,7 +51,7 @@
                 metadata["channel"] = window.location.hostname;
                 metadata["playerName"] = getPlayerName();
     
-                metadata["viewerID"] = viewerID;
+                metadata["viewerID"] = s.visitor.getMarketingCloudVisitorID();
                 //add all custom fields 
                 Object.assign(metadata, myPlayer.mediainfo.customFields);
     
@@ -93,7 +93,7 @@
             if (isContentLoaded) {
                 //conviva data
                 userData = {}
-                userData["id"] = viewerID;
+                userData["id"] = s.visitor.getMarketingCloudVisitorID();
     
                 convivaHelper.createConvivaSession(userData, metadata);
                 convivaHelper.attachPlayerToSession();
