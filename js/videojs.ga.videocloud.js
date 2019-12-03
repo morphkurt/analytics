@@ -5,14 +5,13 @@
 * Copyright (c) 2018 Michael Bensoussan
 * Licensed MIT
 */
-(function() {
+(function () {
   var registerPlugin,
-    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+    __indexOf = [].indexOf || function (item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   registerPlugin = videojs.registerPlugin || videojs.plugin;
 
-  registerPlugin('ga', function(options) {
-    console.log(JSON.stringify(options))
+  registerPlugin('ga', function (options) {
     var adStateRegex, currentVideo, dataSetupOptions, defaultLabel, defaultsEventsToTrack, end, endTracked, error, eventCategory, eventLabel, eventNames, eventsToTrack, fullscreen, getEventName, isInAdState, loaded, parsedOptions, pause, percentsAlreadyTracked, percentsPlayedInterval, play, player, referrer, resize, seekEnd, seekStart, seeking, sendbeacon, sendbeaconOverride, start, startTracked, timeupdate, tracker, trackerName, volumeChange,
       _this = this;
     if (options == null) {
@@ -67,7 +66,7 @@
       "player_load": "Player Load",
       "end": "Media Complete"
     };
-    getEventName = function(name) {
+    getEventName = function (name) {
       if (options.eventNames && options.eventNames[name]) {
         return options.eventNames[name];
       }
@@ -81,10 +80,10 @@
     };
     if (window.location.host === 'players.brightcove.net' || window.location.host === 'preview-players.brightcove.net' || trackerName !== '') {
       tracker = options.tracker || dataSetupOptions.tracker;
-      if (tracker) {
-        (function(i, s, o, g, r, a, m) {
+      if (true) {
+        (function (i, s, o, g, r, a, m) {
           i["GoogleAnalyticsObject"] = r;
-          i[r] = i[r] || function() {
+          i[r] = i[r] || function () {
             return (i[r].q = i[r].q || []).push(arguments);
           };
           i[r].l = 1 * new Date();
@@ -99,16 +98,17 @@
       }
     }
     adStateRegex = /(\s|^)vjs-ad-(playing|loading)(\s|$)/;
-    isInAdState = function(player) {
+    isInAdState = function (player) {
       return adStateRegex.test(player.el().className);
     };
-    loaded = function() {
+    loaded = function () {
       if (!isInAdState(player)) {
         if (defaultLabel) {
           eventLabel = defaultLabel;
         } else {
           if (player.mediainfo && player.mediainfo.id) {
-            eventLabel = player.mediainfo.id + ' | ' + player.mediainfo.name;
+            var custom_fields =createCustomData(player.mediainfo.custom_fields)
+            eventLabel = player.mediainfo.id + ' | ' + player.mediainfo.name + ' | ' + custom_fields;
           } else {
             eventLabel = this.currentSrc().split("/").slice(-1)[0].replace(/\.(\w{3,4})(\?.*)?$/i, '');
           }
@@ -126,7 +126,7 @@
         }
       }
     };
-    timeupdate = function() {
+    timeupdate = function () {
       var currentTime, duration, percent, percentPlayed, _i;
       if (!isInAdState(player)) {
         currentTime = Math.round(this.currentTime());
@@ -153,14 +153,13 @@
         }
       }
     };
-    end = function() {
+    end = function () {
       if (!isInAdState(player) && !endTracked) {
         sendbeacon(getEventName('end'), true);
         endTracked = true;
       }
     };
-    play = function() {
-      console.log("started Playing")
+    play = function () {
       var currentTime;
       if (!isInAdState(player)) {
         currentTime = Math.round(this.currentTime());
@@ -168,7 +167,7 @@
         seeking = false;
       }
     };
-    start = function() {
+    start = function () {
       if (!isInAdState(player)) {
         if (__indexOf.call(eventsToTrack, "start") >= 0 && !startTracked) {
           sendbeacon(getEventName('start'), true);
@@ -176,7 +175,7 @@
         }
       }
     };
-    pause = function() {
+    pause = function () {
       var currentTime, duration;
       if (!isInAdState(player)) {
         currentTime = Math.round(this.currentTime());
@@ -186,20 +185,20 @@
         }
       }
     };
-    volumeChange = function() {
+    volumeChange = function () {
       var volume;
       volume = this.muted() === true ? 0 : this.volume();
       sendbeacon(getEventName('volume_change'), false, volume);
     };
-    resize = function() {
+    resize = function () {
       sendbeacon(getEventName('resize') + ' - ' + this.width() + "*" + this.height(), true);
     };
-    error = function() {
+    error = function () {
       var currentTime;
       currentTime = Math.round(this.currentTime());
       sendbeacon(getEventName('error'), true, currentTime);
     };
-    fullscreen = function() {
+    fullscreen = function () {
       var currentTime;
       currentTime = Math.round(this.currentTime());
       if (this.isFullscreen()) {
@@ -208,17 +207,10 @@
         sendbeacon(getEventName('fullscreen_exit'), false, currentTime);
       }
     };
-    sendbeacon = function(action, nonInteraction, value) {
+    sendbeacon = function (action, nonInteraction, value) {
       if (sendbeaconOverride) {
         sendbeaconOverride(eventCategory, action, eventLabel, value, nonInteraction);
       } else if (window.ga) {
-        console.log(JSON.stringify(trackerName + 'send', 'event', {
-          'eventCategory': eventCategory,
-          'eventAction': action,
-          'eventLabel': eventLabel,
-          'eventValue': value,
-          'nonInteraction': nonInteraction
-        }))
         ga(trackerName + 'send', 'event', {
           'eventCategory': eventCategory,
           'eventAction': action,
@@ -227,14 +219,12 @@
           'nonInteraction': nonInteraction
         });
       } else if (window._gaq) {
-        console.log("4")
         _gaq.push(['_trackEvent', eventCategory, action, eventLabel, value, nonInteraction]);
       } else if (options.debug) {
-        console.log("5")
         videojs.log("Google Analytics not detected");
       }
     };
-    this.ready(function() {
+    this.ready(function () {
       var href, iframe;
       this.on("loadedmetadata", loaded);
       this.on("timeupdate", timeupdate);
@@ -293,3 +283,13 @@
   });
 
 }).call(this);
+
+function createCustomData(p) {
+  var s = ''
+  for (var key in p) {
+    if (p.hasOwnProperty(key)) {
+      s = `${s} | ${key} : ${p[key]}`
+    }
+  }
+  return s;
+}

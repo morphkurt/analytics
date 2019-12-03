@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <!--script src="js/videojs.ga.js"></script-->
+    <script src="js/conviva/ClientMeasureInterface.js"></script>
+    <script src="js/conviva/ConvivaHelper.js"></script>
+    <script src="js/conviva/Http.js"></script>
+    <script src="js/conviva/Logging.js"></script>
+    <script src="js/conviva/Metadata.js"></script>
+    <script src="js/conviva/Storage.js"></script>
+    <script src="js/conviva/SystemInterfaceFactory.js"></script>
+    <script src="js/conviva/Time.js"></script>
+    <script src="js/conviva/Timer.js"></script>
+    <script src="js/conviva/conviva-core-sdk.min.js"></script>
+</head>
+
+
+<body>
+    <div style="max-width: 960px;">
+        <video-js id="player" data-account="6057984922001" data-player="fprFS9RfZ" data-embed="default" controls=""
+            data-video-id="6081182324001" data-playlist-id="" data-application-id="" class="vjs-fluid"></video-js>
+    </div>
+    <script src="https://players.brightcove.net/6057984922001/fprFS9RfZ_default/index.min.js"></script>
+
+
+    </script>
+    <script type="text/javascript" src="js/videojs.ga.videocloud.js"></script>
+    <script type="text/javascript">
+        var options = {
+            "tracker": "UA-153720036-1",
+            "trackerName": "videoTracker",
+            "debug": false,
+            "percentsPlayedInterval": 25
+        };
+    </script>
+    <script>
+
+        videojs.getPlayer('player').ga(options);
+
+
+
+    </script>
+
+</body>
+
+</html>
