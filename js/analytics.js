@@ -1,19 +1,19 @@
-
 videojs.registerPlugin('AdobeConviva', function (options) {
-
-
-
     function log(m, p) {
         if (!p) {
             console.log(m)
         }
     }
     var prod = false;
+    var adobe = true;
     if (!options) {
         console.log("Options has not been added, please add the options on video cloud")
     } else {
         prod = (options["env"] == "production");
+        adobe = options["adobe"];
     }
+
+
     var myPlayer = this;
     var isContentLoaded = false;
     var videoDuration;
@@ -27,7 +27,10 @@ videojs.registerPlugin('AdobeConviva', function (options) {
     convivaHelper = new ConvivaHelper(options);
     convivaHelper.initializeConviva();
     convivaHelper._testingEnvironment = prod; // set to false in production 
-    var viewerID = s.visitor.getMarketingCloudVisitorID();
+    var viewerID = "random:" + Math.random() * 1e9;
+    if (adobe) {
+        viewerID = s.visitor.getMarketingCloudVisitorID();
+    }
 
     function ABDMediaOPEN() {
         log("++ IN ABDMediaOPEN TOP ++", prod);
@@ -70,12 +73,14 @@ videojs.registerPlugin('AdobeConviva', function (options) {
 
 
             //Open adobe Analytics Media Module	
-            s.Media.open(mediaName, videoDuration, mediaPlayerName);
+
+            adobe && s.Media.open(mediaName, videoDuration, mediaPlayerName);
+
             //Check if video is playing
             if (isPlaying) {
                 log("++IN ABDMediaOPEN video is playing " + mediaName + " | " + videoDuration, prod);
                 //Play Adobe Analytics Media module from beginning.
-                s.Media.play(mediaName, currentTime);
+                adobe && s.Media.play(mediaName, currentTime);
             }
         }
     }
@@ -126,8 +131,12 @@ videojs.registerPlugin('AdobeConviva', function (options) {
         if (isContentLoaded) {
             currentTime = myPlayer.currentTime();
             //Play Adobe Analytics Media module from the current head.
-            s.eVar63 = mediaName;
-            s.Media.play(mediaName, currentTime);
+            if (adobe) {
+                s.eVar63 = mediaName
+                s.Media.play(mediaName, currentTime);
+
+            }
+
         }
     });
 
@@ -145,7 +154,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
         if (isContentLoaded) {
             currentTime = myPlayer.currentTime();
             //Play Adobe Analytics Media module from the current head.
-            s.Media.stop(mediaName, currentTime);
+            adobe && s.Media.stop(mediaName, currentTime);
             convivaHelper.updatePlayerState("pause");
         }
     });
@@ -164,7 +173,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
         if (isContentLoaded) {
             currentTime = myPlayer.currentTime();
             //Play Adobe Analytics Media module from the current head.
-            s.Media.play(mediaName, currentTime);
+            adobe && s.Media.play(mediaName, currentTime);
             convivaHelper.contentSeeked();
         }
     });
@@ -175,7 +184,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
         if (isContentLoaded) {
             currentTime = myPlayer.currentTime();
             //Play Adobe Analytics Media module from the current head.
-            s.Media.stop(mediaName, currentTime);
+            adobe && s.Media.stop(mediaName, currentTime);
         }
     });
 
@@ -204,8 +213,8 @@ videojs.registerPlugin('AdobeConviva', function (options) {
         if (isContentLoaded) {
             currentTime = myPlayer.currentTime();
             //Play Adobe Analytics Media module from the current head.
-            s.Media.stop(mediaName, currentTime);
-            s.Media.close(mediaName);
+            adobe && s.Media.stop(mediaName, currentTime);
+            adobe && s.Media.close(mediaName);
             convivaHelper.updatePlayerState("ended");
             convivaHelper.cleanupConvivaSession();
             resetVariables();
