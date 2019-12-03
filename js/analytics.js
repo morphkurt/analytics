@@ -98,6 +98,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
         if (myPlayer.mediainfo.name) {
             isContentLoaded = true;
             //Initiate Adobe Analytics Media Module tracking && Conviva Analytics
+        
 
         }
     });
@@ -161,6 +162,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
 
     myPlayer.on('progress', function () {
         log("progressed - " + myPlayer.mediainfo.name, prod);
+       
     });
 
     myPlayer.on('resize', function () {
@@ -187,6 +189,13 @@ videojs.registerPlugin('AdobeConviva', function (options) {
             adobe && s.Media.stop(mediaName, currentTime);
         }
     });
+
+    myPlayer.on('stalled', function () {
+        log("++stalled - " + myPlayer.mediainfo.name, prod);
+        //Check if metadata loaded - needed to make sure correct video media module instance is tracked.
+        
+    });
+
 
     myPlayer.on('timeupdate', function () {
         log("++timeupdate - " + myPlayer.mediainfo.name, prod);
