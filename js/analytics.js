@@ -92,11 +92,6 @@ videojs.registerPlugin('AdobeConviva', function (options) {
         //Check if metadata loaded - needed to make sure correct video media module instance is tracked.
         if (isContentLoaded) {
             //conviva data
-            userData = {}
-            userData["id"] = s.visitor.getMarketingCloudVisitorID();
-
-            convivaHelper.createConvivaSession(userData, metadata);
-            convivaHelper.attachPlayerToSession();
         }
     });
 
