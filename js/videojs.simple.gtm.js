@@ -31,7 +31,8 @@ videojs.registerPlugin('simplegtm', function (options) {
         mediaProgramCategory,
         mediaProgramType,
         mediaAssetPubisherName,
-        mediaAdStatus
+        mediaAdStatus,
+        mediaAssetDescription
 
 
     player.on('loadedmetadata', function () {
@@ -54,6 +55,7 @@ videojs.registerPlugin('simplegtm', function (options) {
             mediaProgramType = player.mediainfo.customFields.program_type
             mediaAssetPubisherName = player.mediainfo.customFields.content_provider
             mediaAdStatus = player.mediainfo.customFields.no_ads
+            mediaAssetDescription = player.mediainfo.description
         }
 
         dataLayer.push({
@@ -72,7 +74,8 @@ videojs.registerPlugin('simplegtm', function (options) {
             "mediaProgramCategory": mediaProgramCategory,
             "mediaProgramType": mediaProgramType,
             "mediaAssetPubisherName": mediaAssetPubisherName,
-            "mediaAdStatus":mediaAdStatus
+            "mediaAdStatus":mediaAdStatus,
+            "mediaAssetDescription": mediaAssetDescription
         }
         )
 
