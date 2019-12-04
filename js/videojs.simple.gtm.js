@@ -6,8 +6,13 @@ videojs.registerPlugin('simplegtm', function (options) {
         console.log("Google GTM is not detected")
     }
 
+    var debug = false;
+
+    if (options) {
+        debug = options.debug;
+    }
+
     var player = this;
-    var videoId;
     var percentsPlayedInterval = 25;
     var percentsAlreadyTracked = [];
     var mediaAssetAccount,
@@ -18,13 +23,22 @@ videojs.registerPlugin('simplegtm', function (options) {
         mediaAssetSessionID,
         mediaAssetID,
         mediaAssetTitle,
-        mediaAssetDuration
+        mediaAssetDuration,
+        competition,
+        matchSeasonName,
+        matchChampionID,
+        matchRoundName,
+        mediaProgramCategory,
+        mediaProgramType,
+        mediaAssetPubisherName,
 
-    eventsTracked = ['loadedmetadata', 'play', 'pause', 'ended', 'timeupdate'];
+
+
+        eventsTracked = ['loadedmetadata', 'play', 'pause', 'ended', 'timeupdate'];
 
     player.on('loadedmetadata', function () {
 
-        console.log('++++ loadedmetadata +++ ');
+        debug && console.log('++++ loadedmetadata +++ ');
         if (player.mediainfo) {
             mediaAssetAccount = player.mediainfo.accountId
             pageName = player.bcAnalytics.client.defaultParams_.destination
@@ -34,6 +48,13 @@ videojs.registerPlugin('simplegtm', function (options) {
             mediaAssetTitle = player.mediainfo.name
             mediaAssetDuration = player.mediainfo.duration
             mediaPlatformVersion = player.bcAnalytics.client.defaultParams_.platform_version
+            competition = player.mediainfo.competition
+            matchSeasonName = player.mediainfo.season_name
+            matchChampionID = player.mediainfo.match_champion_id
+            matchRoundName = player.mediainfo.round_name
+            mediaProgramCategory = player.mediainfo.program_category
+            mediaProgramType = player.mediainfo.program_type
+            mediaAssetPubisherName = player.mediainfo.content_provider
         }
 
         dataLayer.push({
@@ -44,7 +65,14 @@ videojs.registerPlugin('simplegtm', function (options) {
             "mediaAssetID": mediaAssetID,
             "mediaAssetTitle": mediaAssetTitle,
             "mediaAssetDuration": mediaAssetDuration,
-            "mediaPlatformVersion": mediaPlatformVersion
+            "mediaPlatformVersion": mediaPlatformVersion,
+            "competition": competition,
+            "matchSeasonName": matchSeasonName,
+            "matchChampionID": matchChampionID,
+            "matchRoundName": matchRoundName,
+            "mediaProgramCategory": mediaProgramCategory,
+            "mediaProgramType": mediaProgramType,
+            "mediaAssetPubisherName": mediaAssetPubisherName
         }
         )
 
@@ -53,7 +81,7 @@ videojs.registerPlugin('simplegtm', function (options) {
 
     player.on('play', function () {
 
-        console.log('+++ play +++ ');
+        debug && console.log('+++ play +++ ');
         dataLayer.push({ "event": "mediaPlayProgressStarted" })
 
 
@@ -62,7 +90,7 @@ videojs.registerPlugin('simplegtm', function (options) {
 
     player.on('ended', function () {
 
-        console.log('+++ ended +++ ');
+        debug && console.log('+++ ended +++ ');
         dataLayer.push({ "event": "mediaPlaybackFinished" })
 
 
@@ -70,7 +98,7 @@ videojs.registerPlugin('simplegtm', function (options) {
 
     player.on('timeupdate', function () {
 
-        console.log('+++ timeupdate +++ ');
+        debug && console.log('+++ timeupdate +++ ');
         var currentTime = Math.round(this.currentTime());
         var duration = Math.round(this.duration());
         var percentPlayed = Math.round(currentTime / duration * 100);
@@ -78,7 +106,7 @@ videojs.registerPlugin('simplegtm', function (options) {
             if (percentPlayed >= percent && __indexOf.call(percentsAlreadyTracked, percent) < 0) {
                 if (percentPlayed !== 0) {
                     if (percent > 0) {
-                        console.log(percent + '% Milestone Passed');
+                        debug && console.log(percent + '% Milestone Passed');
                         dataLayer.push({
                             "event": "mediaPlayProgress",
                             "mediaPlayProgressPosition": `0.${percent}`
