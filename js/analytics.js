@@ -279,6 +279,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
         if (myPlayer.mediainfo.name) {
             isContentLoaded = true;
             //Initiate Adobe Analytics Media Module tracking && Conviva Analytics
+            ABDMediaOPEN();
         }
 
     });
