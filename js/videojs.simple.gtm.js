@@ -48,13 +48,13 @@ videojs.registerPlugin('simplegtm', function (options) {
             mediaAssetTitle = player.mediainfo.name
             mediaAssetDuration = player.mediainfo.duration
             mediaPlatformVersion = player.bcAnalytics.client.defaultParams_.platform_version
-            competition = player.mediainfo.competition
-            matchSeasonName = player.mediainfo.season_name
-            matchChampionID = player.mediainfo.match_champion_id
-            matchRoundName = player.mediainfo.round_name
-            mediaProgramCategory = player.mediainfo.program_category
-            mediaProgramType = player.mediainfo.program_type
-            mediaAssetPubisherName = player.mediainfo.content_provider
+            competition = player.mediainfo.customFields.competition
+            matchSeasonName = player.mediainfo.customFields.season_name
+            matchChampionID = player.mediainfo.customFields.match_champion_id
+            matchRoundName = player.mediainfo.customFields.round_name
+            mediaProgramCategory = player.mediainfo.customFields.program_category
+            mediaProgramType = player.mediainfo.customFields.program_type
+            mediaAssetPubisherName = player.mediainfo.customFields.content_provider
         }
 
         dataLayer.push({
