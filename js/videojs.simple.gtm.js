@@ -12,10 +12,10 @@ videojs.registerPlugin('simplegtm', function (options) {
         debug = options.debug;
     }
 
-    var player = this;
-    var percentsPlayedInterval = 25;
-    var percentsAlreadyTracked = [];
-    var mediaAssetAccount,
+    var player = this,
+        percentsPlayedInterval = 25,
+        percentsAlreadyTracked = [],
+        mediaAssetAccount,
         pageName,
         mediaPlatformVersion,
         mediaPlayer,
@@ -31,10 +31,8 @@ videojs.registerPlugin('simplegtm', function (options) {
         mediaProgramCategory,
         mediaProgramType,
         mediaAssetPubisherName,
+        mediaAdStatus
 
-
-
-        eventsTracked = ['loadedmetadata', 'play', 'pause', 'ended', 'timeupdate'];
 
     player.on('loadedmetadata', function () {
 
@@ -55,6 +53,7 @@ videojs.registerPlugin('simplegtm', function (options) {
             mediaProgramCategory = player.mediainfo.customFields.program_category
             mediaProgramType = player.mediainfo.customFields.program_type
             mediaAssetPubisherName = player.mediainfo.customFields.content_provider
+            mediaAdStatus = player.mediainfo.customFields.no_ads
         }
 
         dataLayer.push({
@@ -72,7 +71,8 @@ videojs.registerPlugin('simplegtm', function (options) {
             "matchRoundName": matchRoundName,
             "mediaProgramCategory": mediaProgramCategory,
             "mediaProgramType": mediaProgramType,
-            "mediaAssetPubisherName": mediaAssetPubisherName
+            "mediaAssetPubisherName": mediaAssetPubisherName,
+            "mediaAdStatus":mediaAdStatus
         }
         )
 
@@ -109,7 +109,7 @@ videojs.registerPlugin('simplegtm', function (options) {
                         debug && console.log(percent + '% Milestone Passed');
                         dataLayer.push({
                             "event": "mediaPlayProgress",
-                            "mediaPlayProgressPosition": `0.${percent}`
+                            "mediaPlayProgressPosition": percent/100
                         })
                     }
 
