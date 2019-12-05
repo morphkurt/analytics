@@ -24,6 +24,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
     var videoEnd = false;
 
     var metadata = {};
+    var firstPlay = false;
     convivaHelper = new ConvivaHelper(options);
     convivaHelper.initializeConviva();
     convivaHelper._testingEnvironment = prod; // set to false in production 
@@ -71,7 +72,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
             Object.assign(metadata, myPlayer.mediainfo.customFields);
 
             log(JSON.stringify(metadata),prod)
-            
+
             //Open adobe Analytics Media Module	
 
             adobe && s.Media.open(mediaName, videoDuration, mediaPlayerName);
@@ -119,6 +120,14 @@ videojs.registerPlugin('AdobeConviva', function (options) {
     myPlayer.on('play', function () {
         log("++Played - " + myPlayer.mediainfo.name, prod);
         isPlaying = true;
+        if (firstPlay) {
+            log("++ First Play via played - " + myPlayer.mediainfo.name, prod);
+            firstPlay = false;
+            isContentLoaded = true;
+            ABDMediaOPEN();
+            convivaHelper.createConvivaSession(userData, metadata);
+            convivaHelper.attachPlayerToSession();
+        }
 
         if (videoEnd) { //user has restarted video from end 
             videoEnd = false;
@@ -144,6 +153,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
 
     myPlayer.on("playing", function () {
         log("++ In Playing ++", prod)
+        
         convivaHelper.setPlayerWidthAndHeight(myPlayer.videoWidth(), myPlayer.videoHeight());
         convivaHelper.updatePlayerState("playing");
     });
@@ -277,6 +287,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
 
     myPlayer.on('loadedmetadata', function () {
         log("++loadedmetadata - " + myPlayer.mediainfo.name, prod);
+        firstPlay = true;
         if (myPlayer.mediainfo.name) {
             isContentLoaded = true;
             //Initiate Adobe Analytics Media Module tracking && Conviva Analytics
