@@ -104,19 +104,6 @@ videojs.registerPlugin('AdobeConviva', function (options) {
         }
     });
 
-    myPlayer.on('firstplay', function () {
-        log("++firstplay - " + myPlayer.mediainfo.name, prod);
-
-        //Check if metadata loaded - needed to make sure correct video media module instance is tracked.
-        if (isContentLoaded) {
-            //conviva data
-            userData = {}
-            userData["id"] = viewerID;
-            convivaHelper.createConvivaSession(userData, metadata);
-            convivaHelper.attachPlayerToSession();
-        }
-    });
-
     myPlayer.on('play', function () {
         log("++Played - " + myPlayer.mediainfo.name, prod);
         isPlaying = true;
