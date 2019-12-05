@@ -219,6 +219,8 @@ var ConvivaHelper = function (options) {
   this.buildConvivaContentMetadata = function (userData, metadata) {
     var contentMetadata = new Conviva.ContentMetadata();
 
+    contentMetadata.custom = metadata;
+
     // Recommended format for the assetName, using both the ID of the video content and its title
     contentMetadata.assetName = "[" + metadata.id + "] " + metadata.title;
 
