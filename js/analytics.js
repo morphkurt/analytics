@@ -63,10 +63,15 @@ videojs.registerPlugin('AdobeConviva', function (options) {
             //createConvivaSession
             userData = {}
             userData["id"] = viewerID;
+            userData["hostname"] = window.location.hostname;
+
+         
 
             //add all custom fields 
             Object.assign(metadata, myPlayer.mediainfo.customFields);
 
+            log(JSON.stringify(metadata),prod)
+            
             //Open adobe Analytics Media Module	
 
             adobe && s.Media.open(mediaName, videoDuration, mediaPlayerName);
@@ -312,4 +317,3 @@ videojs.registerPlugin('AdobeConviva', function (options) {
     }
 
 });
-
