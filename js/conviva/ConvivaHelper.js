@@ -261,7 +261,7 @@ var ConvivaHelper = function (options) {
     // A human-readable identifier for your application.
     // Very helpful to filter traffic and compare performance for different builds of
     // the video application.
-    contentMetadata.applicationName = userData.hostname
+    contentMetadata.applicationName = 'BrightCoveHTML5Playar';
 
     // An identifier for the current user. Can be obfuscated to ensure privacy.
     // Can be used to isolate video traffic for a particular and help with
