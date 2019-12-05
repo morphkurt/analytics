@@ -29,7 +29,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
     convivaHelper.initializeConviva();
     convivaHelper._testingEnvironment = prod; // set to false in production 
     var viewerID = "random:" + Math.random() * 1e9;
-    
+
     if (adobe) {
         viewerID = s.visitor.getMarketingCloudVisitorID();
     }
@@ -66,12 +66,10 @@ videojs.registerPlugin('AdobeConviva', function (options) {
             userData["id"] = viewerID;
             userData["hostname"] = window.location.hostname;
 
-         
-
             //add all custom fields 
             Object.assign(metadata, myPlayer.mediainfo.customFields);
 
-            log(JSON.stringify(metadata),prod)
+            log(JSON.stringify(metadata), prod)
 
             //Open adobe Analytics Media Module	
 
@@ -95,11 +93,12 @@ videojs.registerPlugin('AdobeConviva', function (options) {
 
     myPlayer.on('loadstart', function () {
         log("++loadstart - " + myPlayer.mediainfo.name, prod);
+        firstPlay = true;
         //Check that metadata is loaded
         if (myPlayer.mediainfo.name) {
             isContentLoaded = true;
             //Initiate Adobe Analytics Media Module tracking && Conviva Analytics
-        
+
 
         }
     });
@@ -140,7 +139,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
 
     myPlayer.on("playing", function () {
         log("++ In Playing ++", prod)
-        
+
         convivaHelper.setPlayerWidthAndHeight(myPlayer.videoWidth(), myPlayer.videoHeight());
         convivaHelper.updatePlayerState("playing");
     });
@@ -160,7 +159,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
 
     myPlayer.on('progress', function () {
         log("progressed - " + myPlayer.mediainfo.name, prod);
-       
+
     });
 
     myPlayer.on('resize', function () {
@@ -191,7 +190,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
     myPlayer.on('stalled', function () {
         log("++stalled - " + myPlayer.mediainfo.name, prod);
         //Check if metadata loaded - needed to make sure correct video media module instance is tracked.
-        
+
     });
 
 
@@ -274,15 +273,12 @@ videojs.registerPlugin('AdobeConviva', function (options) {
 
     myPlayer.on('loadedmetadata', function () {
         log("++loadedmetadata - " + myPlayer.mediainfo.name, prod);
-        firstPlay = true;
         if (myPlayer.mediainfo.name) {
             isContentLoaded = true;
             //Initiate Adobe Analytics Media Module tracking && Conviva Analytics
             ABDMediaOPEN();
         }
-
     });
-
 
     function getPlayerName() {
         var hostname = window.location.hostname.replace(/^(www\.|m\.)/, '');
