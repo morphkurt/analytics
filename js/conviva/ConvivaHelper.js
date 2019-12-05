@@ -5,7 +5,6 @@
 /// Handles the complex/repetitive parts of the Conviva integration.
 
 var ConvivaHelper = function (options) {
-
   // Whether the video application is in testing or production mode.
   this._testingEnvironment = (options["env"] == "testing");
  
@@ -260,7 +259,7 @@ var ConvivaHelper = function (options) {
     // A human-readable identifier for your application.
     // Very helpful to filter traffic and compare performance for different builds of
     // the video application.
-    contentMetadata.applicationName = "Telstra Internal";
+    contentMetadata.applicationName = userData.hostname
 
     // An identifier for the current user. Can be obfuscated to ensure privacy.
     // Can be used to isolate video traffic for a particular and help with
