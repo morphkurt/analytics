@@ -23,12 +23,40 @@
             data-video-id="6081182324001" data-playlist-id="" data-application-id="" class="vjs-fluid"></video-js>
     </div>
     <script src="https://players.brightcove.net/6057984922001/fprFS9RfZ_default/index.min.js"></script>
-
-
     </script>
     <script type="text/javascript" src="js/videojs.simple.gtm.js"></script>
     <script type="text/javascript">
         var options = {
+            "mapping": {
+                "mediainfo": [
+                    { "mediaAssetAccount": "accountId" },
+                    { "mediaAssetID": "id" },
+                    { "mediaAssetTitle": "name" },
+                    { "mediaAssetDuration": "duration" },
+                    { "mediaAssetDescription": "description" }
+                ],
+                "bcAnalytics_client_defaultParams_": [
+                    { "pageName": "destination" },
+                    { "mediaPlayerName": "player_name" },
+                    { "mediaAssetSessionID": "session" },
+                    { "mediaPlatformVersion": "platform_version" }
+                ],
+                "customFields": [
+                    { "matchSeasonName": "season_name" },
+                    { "matchChampionID": "match_champion_id" },
+                    { "matchRoundName": "round_name" },
+                    { "mediaProgramCategory": "program_category" },
+                    { "mediaProgramCollection": "program_collection" },
+                    { "mediaProgramType": "program_type" },
+                    { "mediaAssetPubisherName": "content_provider" },
+                    { "mediaAdStatus": "no_ads" },
+                    { "competition": "competition" }
+                ],
+                "staticFields": [
+                    { "mediaAssetType": "video" }
+                ]
+            },
+            "percentsPlayedInterval": 25,
             "debug": true
         };
     </script>

@@ -1,5 +1,4 @@
 videojs.registerPlugin('simplegtm', function (options) {
-
     __indexOf = [].indexOf || function (item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
     if (!dataLayer) {
@@ -7,100 +6,112 @@ videojs.registerPlugin('simplegtm', function (options) {
     }
 
     var debug = false;
+    var firstPlay = false;
 
     if (options) {
         debug = options.debug;
     }
 
     var player = this,
-        percentsPlayedInterval = 25,
-        percentsAlreadyTracked = [],
-        mediaAssetAccount,
-        pageName,
-        mediaPlatformVersion,
-        mediaPlayer,
-        mediaPlayerName,
-        mediaAssetSessionID,
-        mediaAssetID,
-        mediaAssetTitle,
-        mediaAssetDuration,
-        competition,
-        matchSeasonName,
-        matchChampionID,
-        matchRoundName,
-        mediaProgramCategory,
-        mediaProgramType,
-        mediaAssetPubisherName,
-        mediaAdStatus,
-        mediaAssetDescription
+        percentsPlayedInterval = options.percentsPlayedInterval,
+        percentsAlreadyTracked = []
+
+    var mapping
+    var domainRegex = /^(http|https):\/\/[\w\d.:]+/g
+
+
 
 
     player.on('loadedmetadata', function () {
-
+        var _dataLayerArray = {};
         debug && console.log('++++ loadedmetadata +++ ');
-        if (player.mediainfo) {
-            mediaAssetAccount = player.mediainfo.accountId
-            pageName = player.bcAnalytics.client.defaultParams_.destination
-            mediaPlayerName = player.bcAnalytics.client.defaultParams_.player_name
-            mediaAssetSessionID = player.bcAnalytics.client.defaultParams_.session
-            mediaAssetID = player.mediainfo.id
-            mediaAssetTitle = player.mediainfo.name
-            mediaAssetDuration = player.mediainfo.duration
-            mediaPlatformVersion = player.bcAnalytics.client.defaultParams_.platform_version
-            competition = player.mediainfo.customFields.competition
-            matchSeasonName = player.mediainfo.customFields.season_name
-            matchChampionID = player.mediainfo.customFields.match_champion_id
-            matchRoundName = player.mediainfo.customFields.round_name
-            mediaProgramCategory = player.mediainfo.customFields.program_category
-            mediaProgramType = player.mediainfo.customFields.program_type
-            mediaAssetPubisherName = player.mediainfo.customFields.content_provider
-            mediaAdStatus = player.mediainfo.customFields.no_ads
-            mediaAssetDescription = player.mediainfo.description
-        }
 
-        dataLayer.push({
-            "mediaAssetAccount": mediaAssetAccount,
-            "pageName": pageName,
-            "mediaPlayerName": mediaPlayerName,
-            "mediaAssetSessionID": mediaAssetSessionID,
-            "mediaAssetID": mediaAssetID,
-            "mediaAssetTitle": mediaAssetTitle,
-            "mediaAssetDuration": mediaAssetDuration,
-            "mediaPlatformVersion": mediaPlatformVersion,
-            "competition": competition,
-            "matchSeasonName": matchSeasonName,
-            "matchChampionID": matchChampionID,
-            "matchRoundName": matchRoundName,
-            "mediaProgramCategory": mediaProgramCategory,
-            "mediaProgramType": mediaProgramType,
-            "mediaAssetPubisherName": mediaAssetPubisherName,
-            "mediaAdStatus":mediaAdStatus,
-            "mediaAssetDescription": mediaAssetDescription
-        }
-        )
+        if (!options.mapping) {
+            debug && console.log('++++ mapping data not provided +++ ');
+        } else {
+            var mapping = options.mapping
+            if (mapping["mediainfo"]) {
+                mapping["mediainfo"].forEach(function (data) {
+                    Object.keys(data).forEach(function (key) {
+                        _dataLayerArray[key] = player.mediainfo[data[key]]
+                        debug && console.log('++++ added "' + key + '" : "' + player.mediainfo[data[key]] + '"}  +++ ');
+                    })
+                })
+            }
+            if (mapping["bcAnalytics_client_defaultParams_"]) {
+                mapping["bcAnalytics_client_defaultParams_"].forEach(function (data) {
+                    Object.keys(data).forEach(function (key) {
 
+                        if (key == "pageName") {
+                            _dataLayerArray[key] = player.bcAnalytics.client.defaultParams_[data[key]].replace(domainRegex,"")
+                            debug && console.log('++++ added "' + key + '" : "' + player.bcAnalytics.client.defaultParams_[data[key]].replace(domainRegex,"") + '"}  +++ ');
+                        } else {
+                            _dataLayerArray[key] = player.bcAnalytics.client.defaultParams_[data[key]]
+                            debug && console.log('++++ added "' + key + '" : "' + player.bcAnalytics.client.defaultParams_[data[key]] + '"}  +++ ');
+
+                        }
+                    })
+                })
+            }
+            if (mapping["customFields"]) {
+                mapping["customFields"].forEach(function (data) {
+                    Object.keys(data).forEach(function (key) {
+                        _dataLayerArray[key] = player.mediainfo.customFields[data[key]]
+                        debug && console.log('++++ added "' + key + '" : "' + player.mediainfo.customFields[data[key]] + '"}  +++ ');
+                    })
+                })
+            }
+            if (mapping["staticFields"]) {
+                mapping["staticFields"].forEach(function (data) {
+                    Object.keys(data).forEach(function (key) {
+                        _dataLayerArray[key] = data[key]
+                        debug && console.log('++++ added "' + key + '" : "' + data[key] + '"}  +++ ');
+                    })
+                })
+            }
+            // Special additons (if duration > 0 it will be a demand otherwise it will be live)
+            if (player.mediainfo.duration > 0) {
+                debug && console.log('++++ added mediaAssetDelivery : demand +++ ');
+                _dataLayerArray['mediaAssetDelivery'] = 'demand'
+            } else {
+                debug && console.log('++++ added mediaAssetDelivery : live +++ ');
+                _dataLayerArray['mediaAssetDelivery'] = 'live'
+            }
+            _dataLayerArray['mediaAssetType'] = 'video'
+        }
+        dataLayer.push(_dataLayerArray)
     });
 
 
     player.on('play', function () {
-
         debug && console.log('+++ play +++ ');
-        dataLayer.push({ "event": "mediaPlayProgressStarted" })
+        if (firstPlay) {
+            debug && console.log('+++ first play +++ ');
+            dataLayer.push({ "event": "mediaPlayProgressStarted" })
+            firstPlay = false
+        } else {
+            debug && console.log('+++ non first play +++ ');
+            dataLayer.push({ "event": "mediaPlayBackStarted" })
+        }
+    });
+    //
+    player.on('loadstart', function () {
+        debug && console.log('+++ loadstart +++ ');
+        firstPlay = true;
+    });
 
-
+    player.on('pause', function () {
+        debug && console.log('+++ pause +++ ');
+        dataLayer.push({ "event": "mediaPlaybackPaused" })
 
     });
 
     player.on('ended', function () {
-
         debug && console.log('+++ ended +++ ');
         dataLayer.push({ "event": "mediaPlaybackFinished" })
-
-
     });
 
     player.on('timeupdate', function () {
-
         debug && console.log('+++ timeupdate +++ ');
         var currentTime = Math.round(this.currentTime());
         var duration = Math.round(this.duration());
@@ -112,10 +123,9 @@ videojs.registerPlugin('simplegtm', function (options) {
                         debug && console.log(percent + '% Milestone Passed');
                         dataLayer.push({
                             "event": "mediaPlayProgress",
-                            "mediaPlayProgressPosition": percent/100
+                            "mediaPlayProgressPosition": percent / 100
                         })
                     }
-
                 }
                 if (percentPlayed > 0) {
                     percentsAlreadyTracked.push(percent);
