@@ -22,6 +22,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
     var currentTime;
     var isPlaying = false;
     var videoEnd = false;
+    var bitRate = 0;
 
     var metadata = {};
     var firstPlay = false;
@@ -89,6 +90,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
         isContentLoaded = false;
         videoDuration = currentTime = "";
         videoEnd = true;
+        bitRate=0;
     }
 
     myPlayer.on('loadstart', function () {
@@ -113,6 +115,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
             ABDMediaOPEN();
             convivaHelper.createConvivaSession(userData, metadata);
             convivaHelper.attachPlayerToSession();
+            convivaHelper.contentSetBitrateKbps(bitRate);
         }
 
         if (videoEnd) { //user has restarted video from end 
@@ -264,8 +267,9 @@ videojs.registerPlugin('AdobeConviva', function (options) {
             if (hls && hls.playlists && hls.playlists.media) {
                 const media = hls.playlists.media();
                 if (media && media.attributes && media.attributes.BANDWIDTH) {
-                    convivaHelper.contentSetBitrateKbps(media.attributes.BANDWIDTH / 1000);
-                    log(media.attributes.BANDWIDTH / 1000, prod);
+                    bitRate = media.attributes.BANDWIDTH/1e3;
+                    //convivaHelper.contentSetBitrateKbps(media.attributes.BANDWIDTH / 1000);
+                    log(bitRate, prod);
                 }
             }
         }
