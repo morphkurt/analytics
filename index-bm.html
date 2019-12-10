@@ -102,6 +102,27 @@
       }
     });
 
+    player.on("adstarted", function () {
+      if (akamaiAnalytics) {
+        var adInfoObject = {};
+        adInfoObject["adDuration"] = adDuration; // duration is in milliseconds
+        akamaiAnalytics.handleAdStarted(adObject);
+        log('+++ akamaiAnalytics beacon fired "akamaiAnalytics.handleAdStarted" +++');
+      }
+    });
+    player.on("adskipped", function () {
+      if (akamaiAnalytics) {
+        akamaiAnalytics.handleAdSkipped()
+        log('+++ akamaiAnalytics beacon fired "akamaiAnalytics.handleAdSkipped()" +++');
+      }
+    });
+    player.on("adfinished", function () {
+      if (akamaiAnalytics) {
+        akamaiAnalytics.handleAdComplete();
+        log('+++ akamaiAnalytics beacon fired "akamaiAnalytics.handleAdComplete()" +++');
+      }
+    });
+
     function log(m) {
       console.log(m)
       var log = document.getElementById('console');
