@@ -10,7 +10,7 @@ videojs.registerPlugin('simplegtm', function (options) {
     var _dataLayerArray;
 
     if (options) {
-        debug = window.localStorage.getItem("sdsat_debug") || options.debug;
+        debug = (window.localStorage.getItem("sdsat_debug") == 'true') || options.debug;
     } 
 
     
