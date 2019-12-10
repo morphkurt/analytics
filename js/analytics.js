@@ -9,7 +9,7 @@ videojs.registerPlugin('AdobeConviva', function (options) {
     if (!options) {
         console.log("Options has not been added, please add the options on video cloud")
     } else {
-        prod = (options["env"] == "production");
+        prod = !window.localStorage.getItem("sdsat_debug") || (options["env"] == "production");
         adobe = options["adobe"];
     }
 
