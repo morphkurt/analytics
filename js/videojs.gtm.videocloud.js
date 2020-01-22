@@ -1,1 +1,0 @@
-../../brightcove-gtm/dist/videojs.gtm.videocloud.js
