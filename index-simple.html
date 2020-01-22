@@ -20,7 +20,7 @@
 <body>
     <div style="max-width: 960px;">
         <video-js id="player" data-account="6057984922001" data-player="fprFS9RfZ" data-embed="default" controls=""
-            data-video-id="6081182324001" data-playlist-id="" data-application-id="" class="vjs-fluid"></video-js>
+            data-video-id="6102399950001" data-playlist-id="" data-application-id="" class="vjs-fluid"></video-js>
     </div>
     <script src="https://players.brightcove.net/6057984922001/fprFS9RfZ_default/index.min.js"></script>
     </script>
@@ -28,32 +28,163 @@
     <script type="text/javascript">
         var options = {
             "mapping": {
-                "mediainfo": [
-                    { "mediaAssetAccount": "accountId" },
-                    { "mediaAssetID": "id" },
-                    { "mediaAssetTitle": "name" },
-                    { "mediaAssetDuration": "duration" },
-                    { "mediaAssetDescription": "description" }
-                ],
-                "bcAnalytics_client_defaultParams_": [
-                    { "pageName": "destination" },
-                    { "mediaPlayerName": "player_name" },
-                    { "mediaAssetSessionID": "session" },
-                    { "mediaPlatformVersion": "platform_version" }
-                ],
-                "customFields": [
-                    { "matchSeasonName": "season_name" },
-                    { "matchChampionID": "match_champion_id" },
-                    { "matchRoundName": "round_name" },
-                    { "mediaProgramCategory": "program_category" },
-                    { "mediaProgramCollection": "program_collection" },
-                    { "mediaProgramType": "program_type" },
-                    { "mediaAssetPubisherName": "content_provider" },
-                    { "mediaAdStatus": "no_ads" },
-                    { "competition": "competition" }
-                ],
-                "staticFields": [
-                    { "mediaAssetType": "video" }
+                "values": [
+                    {
+                        "value": "mediaAssetDelivery",
+                        "extractValue": "duration",
+                        "location": "mediainfo",
+                        "modifier": {
+                            "type": "comparator",
+                            "operator": "==",
+                            "value1": "stream",
+                            "value2": "on demand",
+                            "variable": 6
+                        },
+                        "rank": 2
+                    },
+                    {
+                        "value": "mediaAssetID",
+                        "extractValue": "id",
+                        "location": "mediainfo",
+                        "rank": 8
+                    },
+                    {
+                        "value": "mediaAssetTitle",
+                        "extractValue": "name",
+                        "location": "mediainfo",
+                        "rank": 9
+                    },
+                    {
+                        "value": "mediaAssetDuration",
+                        "extractValue": "duration",
+                        "location": "mediainfo",
+                        "rank": 20
+                    },
+                    {
+                        "value": "mediaAssetDescription",
+                        "extractValue": "description",
+                        "location": "mediainfo",
+                        "rank": 10
+                    },
+                    {
+                        "value": "filePath",
+                        "extractValue": "destination",
+                        "location": "bcAnalytics_client_defaultParams_",
+                        "modifier": {
+                            "type": "replace",
+                            "regexBase64": "XihodHRwfGh0dHBzKTpcL1wvW1x3XGQuOl0r",
+                            "replaceValue": ""
+                        },
+                        "rank": 30
+                    },
+                    {
+                        "value": "mediaAssetSessionID",
+                        "extractValue": "session",
+                        "location": "bcAnalytics_client_defaultParams_",
+                        "rank": 31
+                    },
+                    {
+                        "value": "mediaPlayerVersion",
+                        "extractValue": "platform_version",
+                        "location": "bcAnalytics_client_defaultParams_",
+                        "rank": 32
+                    },
+                    {
+                        "value": "matchSeasonName",
+                        "extractValue": "season_name",
+                        "location": "customFields",
+                        "modifier": {
+                            "type": "replace",
+                            "regexBase64": "KCg/PCFeKShbQS1aMC05XVthLXpdfCg/PD1bYS16XSlbQS1aMC05XSkp",
+                            "replaceValue": " $1"
+                        },
+                        "rank": 25
+                    },
+                    {
+                        "value": "matchChampionID",
+                        "extractValue": "match_champion_id",
+                        "location": "customFields",
+                        "rank": 27
+                    },
+                    {
+                        "value": "matchRoundName",
+                        "extractValue": "round_name",
+                        "location": "customFields",
+                        "modifier": {
+                            "type": "replace",
+                            "regexBase64": "KCg/PCFeKShbQS1aMC05XVthLXpdfCg/PD1bYS16XSlbQS1aMC05XSkp",
+                            "replaceValue": " $1"
+                        },
+                        "rank": 29
+                    },
+                    {
+                        "value": "mediaProgramCategory",
+                        "extractValue": "program_category",
+                        "location": "customFields",
+                        "modifier": {
+                            "type": "replace",
+                            "regexBase64": "KCg/PCFeKShbQS1aMC05XVthLXpdfCg/PD1bYS16XSlbQS1aMC05XSkp",
+                            "replaceValue": " $1"
+                        },
+                        "rank": 16
+                    },
+                    {
+                        "value": "mediaProgramCollection",
+                        "extractValue": "program_collection",
+                        "location": "customFields",
+                        "modifier": {
+                            "type": "replace",
+                            "regexBase64": "KCg/PCFeKShbQS1aMC05XVthLXpdfCg/PD1bYS16XSlbQS1aMC05XSkp",
+                            "replaceValue": " $1"
+                        },
+                        "rank": 18
+                    },
+                    {
+                        "value": "mediaProgramType",
+                        "extractValue": "program_type",
+                        "location": "customFields",
+                        "modifier": {
+                            "type": "replace",
+                            "regexBase64": "KCg/PCFeKShbQS1aMC05XVthLXpdfCg/PD1bYS16XSlbQS1aMC05XSkp",
+                            "replaceValue": " $1"
+                        },
+                        "rank": 17
+                    },
+                    {
+                        "value": "mediaAssetPublisherName",
+                        "extractValue": "content_provider",
+                        "location": "customFields",
+                        "rank": 15
+                    },
+                    {
+                        "value": "mediaAdStatus",
+                        "extractValue": "no_ads",
+                        "location": "customFields",
+                        "rank": 19
+                    },
+                    {
+                        "value": "competition",
+                        "extractValue": "competition",
+                        "location": "customFields",
+                        "modifier": {
+                            "type": "replace",
+                            "regexBase64": "KCg/PCFeKShbQS1aMC05XVthLXpdfCg/PD1bYS16XSlbQS1aMC05XSkp",
+                            "replaceValue": " $1"
+                        },
+                        "rank": 23
+                    },
+                    {
+                        "value": "mediaAssetType",
+                        "extractValue": "video",
+                        "location": "staticFields",
+                        "rank": 5
+                    },
+                    {
+                        "value": "mediaPlayerName",
+                        "extractValue": "Brightcove",
+                        "location": "staticFields",
+                        "rank": 4
+                    }
                 ]
             },
             "percentsPlayedInterval": 25,
