@@ -119,6 +119,7 @@ videojs.registerPlugin('simplegtm', function (options) {
         _dataLayerObject['event'] = 'mediaPlaybackFinished';
         _dataLayerObject['mediaPlayProgressPosition'] = 1; 
         _dataLayerObject['timestamp'] =Date.now()
+        mediaPlayBackPosition = 0;
         var _finalDataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
         dataLayer.push(_finalDataLayerArray)
 
