@@ -8,6 +8,8 @@ videojs.registerPlugin('simplegtm', function (options) {
     var debug = false;
     var firstPlay = false;
     var _dataLayerArray;
+    var mediaPlayBackPosition = 0;
+   
 
     if (options) {
         debug = (window.localStorage.getItem("sdsat_debug") == 'true') || options.debug;
@@ -67,17 +69,22 @@ videojs.registerPlugin('simplegtm', function (options) {
         if (firstPlay) {
             debug && console.log('+++ first play +++ ');
             populateData();
+            mediaPlayBackPosition = 0;
             _dataLayerObject = {}
             _dataLayerObject['event'] = 'mediaPlayProgressStarted';
             _dataLayerObject['mediaPlayProgressPosition'] = 0;
-            _dataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
-            dataLayer.push(_dataLayerArray)
+            _dataLayerObject['timestamp'] =Date.now()
+            var _finalDataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
+            dataLayer.push(_finalDataLayerArray)
             firstPlay = false
         } else {
             debug && console.log('+++ non first play +++ ');
-            _dataLayerArray['event'] = 'mediaPlayBackStarted';
-            dataLayer.push(_dataLayerArray)
-
+            _dataLayerObject = {}
+            _dataLayerObject['event'] = 'mediaPlayBackStarted';
+            _dataLayerObject['mediaPlayProgressPosition'] = mediaPlayBackPosition;
+            _dataLayerObject['timestamp'] =Date.now()
+            var _finalDataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
+            dataLayer.push(_finalDataLayerArray)
         }
     });
     //
@@ -94,8 +101,12 @@ videojs.registerPlugin('simplegtm', function (options) {
         debug && console.log('+++ Percentage played' + percentPlayed + ' +++ ');
         if (percentPlayed < 99) {
             debug && console.log('+++ pause +++ ');
-            _dataLayerArray['event'] = 'mediaPlaybackPaused';
-            dataLayer.push(_dataLayerArray)
+            _dataLayerObject = {}
+            _dataLayerObject['event'] = 'mediaPlaybackPaused';
+            _dataLayerObject['mediaPlayProgressPosition'] = mediaPlayBackPosition;
+            _dataLayerObject['timestamp'] =Date.now()
+            var _finalDataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
+            dataLayer.push(_finalDataLayerArray)
         } else {
             debug && console.log('+++ pause at the end detected +++ ');
         }
@@ -104,9 +115,13 @@ videojs.registerPlugin('simplegtm', function (options) {
 
     player.on('ended', function () {
         debug && console.log('+++ ended +++ ');
-        _dataLayerArray['event'] = 'mediaPlaybackFinished';
-        _dataLayerArray['mediaPlayProgressPosition'] = 1;
-        dataLayer.push(_dataLayerArray)
+        _dataLayerObject = {}
+        _dataLayerObject['event'] = 'mediaPlaybackPaused';
+        _dataLayerObject['mediaPlayProgressPosition'] = 1; 
+        _dataLayerObject['timestamp'] =Date.now()
+        var _finalDataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
+        dataLayer.push(_finalDataLayerArray)
+
     });
 
     player.on('timeupdate', function () {
@@ -119,10 +134,13 @@ videojs.registerPlugin('simplegtm', function (options) {
                 if (percentPlayed !== 0) {
                     if (percent > 0) {
                         debug && console.log(percent + '% Milestone Passed');
-                        _dataLayerArray['event'] = 'mediaPlayProgress';
-                        _dataLayerArray['mediaPlayProgressPosition'] = percent / 100;
-
-                        dataLayer.push(_dataLayerArray)
+                        _dataLayerObject = {}
+                        _dataLayerObject['event'] = 'mediaPlayProgress';
+                        _dataLayerObject['mediaPlayProgressPosition'] = percent / 100;
+                        _dataLayerObject['timestamp'] =Date.now()
+                        mediaPlayBackPosition = percent / 100;
+                        var _finalDataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
+                        dataLayer.push(_finalDataLayerArray)
                     }
                 }
                 if (percentPlayed > 0) {
