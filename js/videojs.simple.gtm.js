@@ -70,12 +70,12 @@ videojs.registerPlugin('simplegtm', function (options) {
             _dataLayerObject = {}
             _dataLayerObject['event'] = 'mediaPlayProgressStarted';
             _dataLayerObject['mediaPlayProgressPosition'] = 0;
-            _dataLayerArray = Object.assign(_dataLayerObject,_dataLayerArray)
+            _dataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
             dataLayer.push(_dataLayerArray)
             firstPlay = false
         } else {
             debug && console.log('+++ non first play +++ ');
-            _dataLayerArray['event'] = 'mediaPlayBackStarted';    
+            _dataLayerArray['event'] = 'mediaPlayBackStarted';
             dataLayer.push(_dataLayerArray)
 
         }
@@ -94,7 +94,7 @@ videojs.registerPlugin('simplegtm', function (options) {
         debug && console.log('+++ Percentage played' + percentPlayed + ' +++ ');
         if (percentPlayed < 99) {
             debug && console.log('+++ pause +++ ');
-            _dataLayerArray['event'] = 'mediaPlaybackPaused';    
+            _dataLayerArray['event'] = 'mediaPlaybackPaused';
             dataLayer.push(_dataLayerArray)
         } else {
             debug && console.log('+++ pause at the end detected +++ ');
@@ -121,7 +121,7 @@ videojs.registerPlugin('simplegtm', function (options) {
                         debug && console.log(percent + '% Milestone Passed');
                         _dataLayerArray['event'] = 'mediaPlayProgress';
                         _dataLayerArray['mediaPlayProgressPosition'] = percent / 100;
-                        
+
                         dataLayer.push(_dataLayerArray)
                     }
                 }
@@ -140,40 +140,40 @@ videojs.registerPlugin('simplegtm', function (options) {
             if (object['operator'] == "==") {
                 return (value == object['variable']) ? object['value1'] : object['value2']
             }
-        } else if(object['type'] == "addSpace") {
+        } else if (object['type'] == "addSpace") {
             return addSpace(value);
         }
         else {
             return value;
         }
-        
+
 
     }
 
 
 
-function ArrNoDupe(a) {
-    var temp = {};
-    for (var i = 0; i < a.length; i++) temp[a[i]] = true;
-    return Object.keys(temp);
-}
-
-function addSpace(v) {
-    let cut = []
-    let words = [];
-    cut.push(0);
-    for (i = 0; i < v.length - 1; i++) {
-        let s = v.substring(i, i + 2)
-        if (/[a-z][A-Z0-9]/g.test(v.substring(i, i + 2))) cut.push(i + 1);
-        if (/[A-Z0-9][a-z]/g.test(v.substring(i, i + 2))) cut.push(i);
+    function ArrNoDupe(a) {
+        var temp = {};
+        for (var i = 0; i < a.length; i++) temp[a[i]] = true;
+        return Object.keys(temp);
     }
-    cut.push(v.length);
-    let uA = ArrNoDupe(cut);
-    for (i = 1; i < uA.length; i++) words.push(v.substring(uA[i - 1], uA[i]))
-    var sentence = ''
-    words.forEach(w => { sentence += w + " " })
-    return sentence.trim()
-}
+
+    function addSpace(v) {
+        let cut = []
+        let words = [];
+        cut.push(0);
+        for (i = 0; i < v.length - 1; i++) {
+            let s = v.substring(i, i + 2)
+            if (/[a-z][A-Z0-9]/g.test(v.substring(i, i + 2))) cut.push(i + 1);
+            if (/[A-Z0-9][a-z]/g.test(v.substring(i, i + 2))) cut.push(i);
+        }
+        cut.push(v.length);
+        let uA = ArrNoDupe(cut);
+        for (i = 1; i < uA.length; i++) words.push(v.substring(uA[i - 1], uA[i]))
+        var sentence = ''
+        words.forEach(w => { sentence += w + " " })
+        return sentence.trim()
+    }
 
 
 
