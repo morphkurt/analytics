@@ -116,7 +116,7 @@ videojs.registerPlugin('simplegtm', function (options) {
     player.on('ended', function () {
         debug && console.log('+++ ended +++ ');
         _dataLayerObject = {}
-        _dataLayerObject['event'] = 'mediaPlaybackPaused';
+        _dataLayerObject['event'] = 'mediaPlaybackFinished';
         _dataLayerObject['mediaPlayProgressPosition'] = 1; 
         _dataLayerObject['timestamp'] =Date.now()
         var _finalDataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
