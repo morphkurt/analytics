@@ -9,7 +9,7 @@ videojs.registerPlugin('simplegtm', function (options) {
     var firstPlay = false;
     var _dataLayerArray;
     var mediaPlayBackPosition = 0;
-   
+
 
     if (options) {
         debug = (window.localStorage.getItem("sdsat_debug") == 'true') || options.debug;
@@ -27,13 +27,11 @@ videojs.registerPlugin('simplegtm', function (options) {
             debug && console.log('++++ mapping data not provided +++ ');
         } else {
             var mapping = options.mapping.values
-            console.log(mapping)
             debug && console.log('++++ Printing mapping Array Pre Sort');
             mapping.sort(function (a, b) {
                 return a.rank - b.rank;
             })
             debug && console.log('++++ Printing mapping Array Post Sort');
-            console.log(mapping)
             mapping.forEach(item => {
                 if (item['location'] == "mediainfo") {
                     _dataLayerArray[item['value']] = player.mediainfo[item['extractValue']] || ''
@@ -69,28 +67,19 @@ videojs.registerPlugin('simplegtm', function (options) {
         if (firstPlay) {
             debug && console.log('+++ first play +++ ');
             populateData();
-            mediaPlayBackPosition = 0;
-            _dataLayerObject = {}
-            _dataLayerObject['event'] = 'mediaPlayProgressStarted';
-            _dataLayerObject['mediaPlayProgressPosition'] = 0;
-            _dataLayerObject['timestamp'] =Date.now()
-            var _finalDataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
-            dataLayer.push(_finalDataLayerArray)
+            pushDataLayer('mediaPlayProgressStarted', 0)
             firstPlay = false
         } else {
             debug && console.log('+++ non first play +++ ');
-            _dataLayerObject = {}
-            _dataLayerObject['event'] = 'mediaPlayBackStarted';
-            _dataLayerObject['mediaPlayProgressPosition'] = mediaPlayBackPosition;
-            _dataLayerObject['timestamp'] =Date.now()
-            var _finalDataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
-            dataLayer.push(_finalDataLayerArray)
+            pushDataLayer('mediaPlayBackStarted', mediaPlayBackPosition)
+
         }
     });
     //
     player.on('loadstart', function () {
         debug && console.log('+++ loadstart +++ ');
         firstPlay = true;
+        percentsAlreadyTracked = [];
     });
 
     player.on('pause', function () {
@@ -101,12 +90,8 @@ videojs.registerPlugin('simplegtm', function (options) {
         debug && console.log('+++ Percentage played' + percentPlayed + ' +++ ');
         if (percentPlayed < 99) {
             debug && console.log('+++ pause +++ ');
-            _dataLayerObject = {}
-            _dataLayerObject['event'] = 'mediaPlaybackPaused';
-            _dataLayerObject['mediaPlayProgressPosition'] = mediaPlayBackPosition;
-            _dataLayerObject['timestamp'] =Date.now()
-            var _finalDataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
-            dataLayer.push(_finalDataLayerArray)
+            pushDataLayer('mediaPlaybackPaused', mediaPlayBackPosition)
+
         } else {
             debug && console.log('+++ pause at the end detected +++ ');
         }
@@ -115,13 +100,9 @@ videojs.registerPlugin('simplegtm', function (options) {
 
     player.on('ended', function () {
         debug && console.log('+++ ended +++ ');
-        _dataLayerObject = {}
-        _dataLayerObject['event'] = 'mediaPlaybackFinished';
-        _dataLayerObject['mediaPlayProgressPosition'] = 1; 
-        _dataLayerObject['timestamp'] =Date.now()
+        pushDataLayer('mediaPlaybackFinished', 1)
         mediaPlayBackPosition = 0;
-        var _finalDataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
-        dataLayer.push(_finalDataLayerArray)
+
 
     });
 
@@ -135,13 +116,8 @@ videojs.registerPlugin('simplegtm', function (options) {
                 if (percentPlayed !== 0) {
                     if (percent > 0) {
                         debug && console.log(percent + '% Milestone Passed');
-                        _dataLayerObject = {}
-                        _dataLayerObject['event'] = 'mediaPlayProgress';
-                        _dataLayerObject['mediaPlayProgressPosition'] = percent / 100;
-                        _dataLayerObject['timestamp'] =Date.now()
                         mediaPlayBackPosition = percent / 100;
-                        var _finalDataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
-                        dataLayer.push(_finalDataLayerArray)
+                        pushDataLayer('mediaPlayProgress', percent / 100)
                     }
                 }
                 if (percentPlayed > 0) {
@@ -150,6 +126,15 @@ videojs.registerPlugin('simplegtm', function (options) {
             }
         }
     });
+
+    function pushDataLayer(event, progressPosition) {
+        _dataLayerObject = {}
+        _dataLayerObject['event'] = event;
+        _dataLayerObject['mediaPlayProgressPosition'] = progressPosition
+        _dataLayerObject['timestamp'] = Date.now()
+        var _finalDataLayerArray = Object.assign(_dataLayerObject, _dataLayerArray)
+        dataLayer.push(_finalDataLayerArray)
+    }
 
     function modify(object, value) {
         if (object['type'] == 'replace') {
@@ -165,11 +150,7 @@ videojs.registerPlugin('simplegtm', function (options) {
         else {
             return value;
         }
-
-
     }
-
-
 
     function ArrNoDupe(a) {
         var temp = {};
