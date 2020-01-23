@@ -140,10 +140,41 @@ videojs.registerPlugin('simplegtm', function (options) {
             if (object['operator'] == "==") {
                 return (value == object['variable']) ? object['value1'] : object['value2']
             }
-        } else {
+        } else if(object['type'] == "addSpace") {
+            return addSpace(value);
+        }
+        else {
             return value;
         }
+        
 
     }
+
+
+
+function ArrNoDupe(a) {
+    var temp = {};
+    for (var i = 0; i < a.length; i++) temp[a[i]] = true;
+    return Object.keys(temp);
+}
+
+function addSpace(v) {
+    let cut = []
+    let words = [];
+    cut.push(0);
+    for (i = 0; i < v.length - 1; i++) {
+        let s = v.substring(i, i + 2)
+        if (/[a-z][A-Z0-9]/g.test(v.substring(i, i + 2))) cut.push(i + 1);
+        if (/[A-Z0-9][a-z]/g.test(v.substring(i, i + 2))) cut.push(i);
+    }
+    cut.push(v.length);
+    let uA = ArrNoDupe(cut);
+    for (i = 1; i < uA.length; i++) words.push(v.substring(uA[i - 1], uA[i]))
+    var sentence = ''
+    words.forEach(w => { sentence += w + " " })
+    return sentence.trim()
+}
+
+
 
 });
