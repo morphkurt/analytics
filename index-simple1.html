@@ -1,0 +1,192 @@
+<html>
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-P9DKGXM');</script>
+    <!-- End Google Tag Manager -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+    </script>
+</head>
+
+
+<body>
+    <div style="max-width: 960px;">
+        <video-js id="player" data-account="6057984922001" data-player="fprFS9RfZ" data-embed="default" controls=""
+            data-video-id="6103285910001" data-playlist-id="" data-application-id="" class="vjs-fluid"></video-js>
+    </div>
+    <script src="https://players.brightcove.net/6057984922001/fprFS9RfZ_default/index.min.js"></script>
+    </script>
+    <script type="text/javascript" src="js/videojs.simple.gtm.js"></script>
+    <script type="text/javascript">
+        var options = {
+            "mapping": {
+                "values": [
+                    {
+                        "value": "mediaAssetDelivery",
+                        "extractValue": "duration",
+                        "location": "mediainfo",
+                        "modifier": {
+                            "type": "comparator",
+                            "operator": "==",
+                            "value1": "stream",
+                            "value2": "on demand",
+                            "variable": 6
+                        },
+                        "rank": 2
+                    },
+                    {
+                        "value": "mediaAssetID",
+                        "extractValue": "id",
+                        "location": "mediainfo",
+                        "rank": 8
+                    },
+                    {
+                        "value": "mediaAssetTitle",
+                        "extractValue": "name",
+                        "location": "mediainfo",
+                        "rank": 9
+                    },
+                    {
+                        "value": "mediaAssetDuration",
+                        "extractValue": "duration",
+                        "location": "mediainfo",
+                        "rank": 20
+                    },
+                    {
+                        "value": "mediaAssetDescription",
+                        "extractValue": "description",
+                        "location": "mediainfo",
+                        "rank": 10
+                    },
+                    {
+                        "value": "filePath",
+                        "extractValue": "destination",
+                        "location": "bcAnalytics_client_defaultParams_",
+                        "modifier": {
+                            "type": "replace",
+                            "regexBase64": "XihodHRwfGh0dHBzKTpcL1wvW1x3XGQuOl0r",
+                            "replaceValue": ""
+                        },
+                        "rank": 30
+                    },
+                    {
+                        "value": "mediaAssetSessionID",
+                        "extractValue": "session",
+                        "location": "bcAnalytics_client_defaultParams_",
+                        "rank": 31
+                    },
+                    {
+                        "value": "mediaPlayerVersion",
+                        "extractValue": "platform_version",
+                        "location": "bcAnalytics_client_defaultParams_",
+                        "rank": 32
+                    },
+                    {
+                        "value": "matchSeasonName",
+                        "extractValue": "season_name",
+                        "location": "customFields",
+                        "modifier": {
+                            "type": "addSpace"
+                        },
+                        "rank": 25
+                    },
+                    {
+                        "value": "matchChampionID",
+                        "extractValue": "match_champion_id",
+                        "location": "customFields",
+                        "rank": 27
+                    },
+                    {
+                        "value": "matchRoundName",
+                        "extractValue": "round_name",
+                        "location": "customFields",
+                        "modifier": {
+                            "type": "addSpace"
+                        },
+                        "rank": 29
+                    },
+                    {
+                        "value": "mediaProgramCategory",
+                        "extractValue": "program_category",
+                        "location": "customFields",
+                        "modifier": {
+                            "type": "addSpace"
+                        },
+                        "rank": 16
+                    },
+                    {
+                        "value": "mediaProgramCollection",
+                        "extractValue": "program_collection",
+                        "location": "customFields",
+                        "modifier": {
+                            "type": "addSpace"
+                        },
+                        "rank": 18
+                    },
+                    {
+                        "value": "mediaProgramType",
+                        "extractValue": "program_type",
+                        "location": "customFields",
+                        "modifier": {
+                            "type": "addSpace"
+                        },
+                        "rank": 17
+                    },
+                    {
+                        "value": "mediaAssetPublisherName",
+                        "extractValue": "content_provider",
+                        "location": "customFields",
+                        "rank": 15
+                    },
+                    {
+                        "value": "mediaAdStatus",
+                        "extractValue": "no_ads",
+                        "location": "customFields",
+                        "rank": 19
+                    },
+                    {
+                        "value": "competition",
+                        "extractValue": "competition",
+                        "location": "customFields",
+                        "modifier": {
+                            "type": "addSpace"
+                        },
+                        "rank": 23
+                    },
+                    {
+                        "value": "mediaAssetType",
+                        "extractValue": "video",
+                        "location": "staticFields",
+                        "rank": 5
+                    },
+                    {
+                        "value": "mediaPlayerName",
+                        "extractValue": "Brightcove",
+                        "location": "staticFields",
+                        "rank": 4
+                    }
+                ]
+            },
+            "percentsPlayedInterval": 25,
+            "debug": true
+        };
+    </script>
+    <script>
+
+        videojs.getPlayer('player').simplegtm(options);
+
+
+
+    </script>
+
+</body>
+
+</html>
