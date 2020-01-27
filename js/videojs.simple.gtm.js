@@ -95,7 +95,6 @@ videojs.registerPlugin('simplegtm', function (options) {
         } else {
             debug && console.log('+++ pause at the end detected +++ ');
         }
-
     });
 
     player.on('ended', function () {
@@ -147,9 +146,36 @@ videojs.registerPlugin('simplegtm', function (options) {
         } else if (object['type'] == "addSpace") {
             return addSpace(value);
         }
+        else if (object['type'] == "convertDate") {
+            return convertDate(value);
+        }else if (object['type'] == "convertTime") {
+            return convertTime(value);
+        }
         else {
             return value;
         }
+    }
+
+    function convertDate(d) {
+        var options = {
+            timeZone: 'Australia/Brisbane',
+            hour: 'numeric', minute: 'numeric', second: 'numeric',
+           
+            hour12: false,
+            timeZoneName: 'short'
+        }
+        formatter = new Intl.DateTimeFormat('en-AU', options)
+        return formatter.format(new Date(d));
+    }
+
+    function convertTime(d) {
+        var options = {
+            timeZone: 'Australia/Brisbane',
+            literal: '-',
+            year: 'numeric', month: 'numeric', day: 'numeric'
+        }
+        formatter = new Intl.DateTimeFormat('en-AU', options)
+        return formatter.format(new Date(d)).replace(/\//g,'-');
     }
 
     function ArrNoDupe(a) {

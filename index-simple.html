@@ -20,7 +20,7 @@
 <body>
     <div style="max-width: 960px;">
         <video-js id="player" data-account="6057984922001" data-player="fprFS9RfZ" data-embed="default" controls=""
-            data-video-id="6102399950001" data-playlist-id="" data-application-id="" class="vjs-fluid"></video-js>
+            data-video-id="6126719954001" data-playlist-id="" data-application-id="" class="vjs-fluid"></video-js>
     </div>
     <script src="https://players.brightcove.net/6057984922001/fprFS9RfZ_default/index.min.js"></script>
     </script>
@@ -38,33 +38,33 @@
                             "operator": "==",
                             "value1": "stream",
                             "value2": "on demand",
-                            "variable": 6
+                            "variable": 0
                         },
-                        "rank": 2
+                        "rank": 3
                     },
                     {
                         "value": "mediaAssetID",
                         "extractValue": "id",
                         "location": "mediainfo",
-                        "rank": 8
+                        "rank": 5
                     },
                     {
                         "value": "mediaAssetTitle",
                         "extractValue": "name",
                         "location": "mediainfo",
-                        "rank": 9
+                        "rank": 6
                     },
                     {
                         "value": "mediaAssetDuration",
                         "extractValue": "duration",
                         "location": "mediainfo",
-                        "rank": 20
+                        "rank": 17
                     },
                     {
                         "value": "mediaAssetDescription",
                         "extractValue": "description",
                         "location": "mediainfo",
-                        "rank": 10
+                        "rank": 7
                     },
                     {
                         "value": "filePath",
@@ -96,13 +96,13 @@
                         "modifier": {
                             "type": "addSpace"
                         },
-                        "rank": 25
+                        "rank": 22
                     },
                     {
                         "value": "matchChampionID",
                         "extractValue": "match_champion_id",
                         "location": "customFields",
-                        "rank": 27
+                        "rank": 24
                     },
                     {
                         "value": "matchRoundName",
@@ -111,7 +111,7 @@
                         "modifier": {
                             "type": "addSpace"
                         },
-                        "rank": 29
+                        "rank": 27
                     },
                     {
                         "value": "mediaProgramCategory",
@@ -120,7 +120,7 @@
                         "modifier": {
                             "type": "addSpace"
                         },
-                        "rank": 16
+                        "rank": 13
                     },
                     {
                         "value": "mediaProgramCollection",
@@ -129,7 +129,38 @@
                         "modifier": {
                             "type": "addSpace"
                         },
-                        "rank": 18
+                        "rank": 15
+                    },
+                    {
+                        "value": "mediaAssetDate",
+                        "extractValue": "publishedAt",
+                        "location": "mediainfo",
+                        "modifier": {
+                            "type": "convertDate"
+                        },
+                        "rank": 8
+                    },
+                    {
+                        "value": "mediaAssetTime",
+                        "extractValue": "publishedAt",
+                        "location": "mediainfo",
+                        "modifier": {
+                            "type": "convertTime"
+                        },
+                        "rank": 9
+                    },
+                    {
+                        "value": "mediaAssetSubscription",
+                        "extractValue": "country_rights",
+                        "location": "customFields",
+                        "modifier": {
+                            "type": "comparator",
+                            "operator": "==",
+                            "value1": "premium",
+                            "value2": "standard",
+                            "variable": "AU NZ Only"
+                        },
+                        "rank": 4
                     },
                     {
                         "value": "mediaProgramType",
@@ -138,7 +169,7 @@
                         "modifier": {
                             "type": "addSpace"
                         },
-                        "rank": 17
+                        "rank": 14
                     },
                     {
                         "value": "mediaAssetPublisherName",
@@ -150,7 +181,7 @@
                         "value": "mediaAdStatus",
                         "extractValue": "no_ads",
                         "location": "customFields",
-                        "rank": 19
+                        "rank": 16
                     },
                     {
                         "value": "competition",
@@ -159,19 +190,19 @@
                         "modifier": {
                             "type": "addSpace"
                         },
-                        "rank": 23
+                        "rank": 20
                     },
                     {
                         "value": "mediaAssetType",
                         "extractValue": "video",
                         "location": "staticFields",
-                        "rank": 5
+                        "rank": 2
                     },
                     {
                         "value": "mediaPlayerName",
                         "extractValue": "Brightcove",
                         "location": "staticFields",
-                        "rank": 4
+                        "rank": 1
                     }
                 ]
             },
