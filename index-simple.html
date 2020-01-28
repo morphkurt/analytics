@@ -27,188 +27,188 @@
     <script type="text/javascript" src="js/videojs.simple.gtm.js"></script>
     <script type="text/javascript">
         var options = {
-            "mapping": {
-                "values": [
-                    {
-                        "value": "mediaAssetDelivery",
-                        "extractValue": "duration",
-                        "location": "mediainfo",
-                        "modifier": {
-                            "type": "comparator",
-                            "operator": "==",
-                            "value1": "stream",
-                            "value2": "on demand",
-                            "variable": 0
-                        },
-                        "rank": 3
-                    },
-                    {
-                        "value": "mediaAssetID",
-                        "extractValue": "id",
-                        "location": "mediainfo",
-                        "rank": 5
-                    },
-                    {
-                        "value": "mediaAssetTitle",
-                        "extractValue": "name",
-                        "location": "mediainfo",
-                        "rank": 6
-                    },
-                    {
-                        "value": "mediaAssetDuration",
-                        "extractValue": "duration",
-                        "location": "mediainfo",
-                        "rank": 17
-                    },
-                    {
-                        "value": "mediaAssetDescription",
-                        "extractValue": "description",
-                        "location": "mediainfo",
-                        "rank": 7
-                    },
-                    {
-                        "value": "filePath",
-                        "extractValue": "destination",
-                        "location": "bcAnalytics_client_defaultParams_",
-                        "modifier": {
-                            "type": "replace",
-                            "regexBase64": "XihodHRwfGh0dHBzKTpcL1wvW1x3XGQuOl0r",
-                            "replaceValue": ""
-                        },
-                        "rank": 30
-                    },
-                    {
-                        "value": "mediaAssetSessionID",
-                        "extractValue": "session",
-                        "location": "bcAnalytics_client_defaultParams_",
-                        "rank": 31
-                    },
-                    {
-                        "value": "mediaPlayerVersion",
-                        "extractValue": "platform_version",
-                        "location": "bcAnalytics_client_defaultParams_",
-                        "rank": 32
-                    },
-                    {
-                        "value": "matchSeasonName",
-                        "extractValue": "season_name",
-                        "location": "customFields",
-                        "modifier": {
-                            "type": "addSpace"
-                        },
-                        "rank": 22
-                    },
-                    {
-                        "value": "matchChampionID",
-                        "extractValue": "match_champion_id",
-                        "location": "customFields",
-                        "rank": 24
-                    },
-                    {
-                        "value": "matchRoundName",
-                        "extractValue": "round_name",
-                        "location": "customFields",
-                        "modifier": {
-                            "type": "addSpace"
-                        },
-                        "rank": 27
-                    },
-                    {
-                        "value": "mediaProgramCategory",
-                        "extractValue": "program_category",
-                        "location": "customFields",
-                        "modifier": {
-                            "type": "addSpace"
-                        },
-                        "rank": 13
-                    },
-                    {
-                        "value": "mediaProgramCollection",
-                        "extractValue": "program_collection",
-                        "location": "customFields",
-                        "modifier": {
-                            "type": "addSpace"
-                        },
-                        "rank": 15
-                    },
-                    {
-                        "value": "mediaAssetDate",
-                        "extractValue": "publishedAt",
-                        "location": "mediainfo",
-                        "modifier": {
-                            "type": "convertDate"
-                        },
-                        "rank": 8
-                    },
-                    {
-                        "value": "mediaAssetTime",
-                        "extractValue": "publishedAt",
-                        "location": "mediainfo",
-                        "modifier": {
-                            "type": "convertTime"
-                        },
-                        "rank": 9
-                    },
-                    {
-                        "value": "mediaAssetSubscription",
-                        "extractValue": "country_rights",
-                        "location": "customFields",
-                        "modifier": {
-                            "type": "comparator",
-                            "operator": "==",
-                            "value1": "premium",
-                            "value2": "standard",
-                            "variable": "AU NZ Only"
-                        },
-                        "rank": 4
-                    },
-                    {
-                        "value": "mediaProgramType",
-                        "extractValue": "program_type",
-                        "location": "customFields",
-                        "modifier": {
-                            "type": "addSpace"
-                        },
-                        "rank": 14
-                    },
-                    {
-                        "value": "mediaAssetPublisherName",
-                        "extractValue": "content_provider",
-                        "location": "customFields",
-                        "rank": 15
-                    },
-                    {
-                        "value": "mediaAdStatus",
-                        "extractValue": "no_ads",
-                        "location": "customFields",
-                        "rank": 16
-                    },
-                    {
-                        "value": "competition",
-                        "extractValue": "competition",
-                        "location": "customFields",
-                        "modifier": {
-                            "type": "addSpace"
-                        },
-                        "rank": 20
-                    },
-                    {
-                        "value": "mediaAssetType",
-                        "extractValue": "video",
-                        "location": "staticFields",
-                        "rank": 2
-                    },
-                    {
-                        "value": "mediaPlayerName",
-                        "extractValue": "Brightcove",
-                        "location": "staticFields",
-                        "rank": 1
-                    }
-                ]
-            },
-            "percentsPlayedInterval": 25,
-            "debug": true
-        };
+  "mapping": {
+    "values": [
+      {
+        "value": "mediaAssetDelivery",
+        "extractValue": "duration",
+        "location": "mediainfo",
+        "modifier": {
+          "type": "comparator",
+          "operator": "==",
+          "value1": "stream",
+          "value2": "on demand",
+          "variable": 0
+        },
+        "rank": 9
+      },
+      {
+        "value": "mediaAssetID",
+        "extractValue": "id",
+        "location": "mediainfo",
+        "rank": 13
+      },
+      {
+        "value": "mediaAssetTitle",
+        "extractValue": "name",
+        "location": "mediainfo",
+        "rank": 15
+      },
+      {
+        "value": "mediaAssetDuration",
+        "extractValue": "duration",
+        "location": "mediainfo",
+        "rank": 39
+      },
+      {
+        "value": "mediaAssetDescription",
+        "extractValue": "description",
+        "location": "mediainfo",
+        "rank": 11
+      },
+      {
+        "value": "filePath",
+        "extractValue": "destination",
+        "location": "bcAnalytics_client_defaultParams_",
+        "modifier": {
+          "type": "replace",
+          "regexBase64": "XihodHRwfGh0dHBzKTpcL1wvW1x3XGQuOl0r",
+          "replaceValue": ""
+        },
+        "rank": 25
+      },
+      {
+        "value": "mediaAssetSessionID",
+        "extractValue": "session",
+        "location": "bcAnalytics_client_defaultParams_",
+        "rank": 14
+      },
+      {
+        "value": "mediaPlayerVersion",
+        "extractValue": "platform_version",
+        "location": "bcAnalytics_client_defaultParams_",
+        "rank": 6
+      },
+      {
+        "value": "matchSeasonName",
+        "extractValue": "season_name",
+        "location": "customFields",
+        "modifier": {
+          "type": "addSpace"
+        },
+        "rank": 49
+      },
+      {
+        "value": "matchChampionID",
+        "extractValue": "match_champion_id",
+        "location": "customFields",
+        "rank": 53
+      },
+      {
+        "value": "matchRoundName",
+        "extractValue": "round_name",
+        "location": "customFields",
+        "modifier": {
+          "type": "addSpace"
+        },
+        "rank": 59
+      },
+      {
+        "value": "mediaProgramCategory",
+        "extractValue": "program_category",
+        "location": "customFields",
+        "modifier": {
+          "type": "addSpace"
+        },
+        "rank": 31
+      },
+      {
+        "value": "mediaProgramCollection",
+        "extractValue": "program_collection",
+        "location": "customFields",
+        "modifier": {
+          "type": "addSpace"
+        },
+        "rank": 35
+      },
+      {
+        "value": "mediaAssetDate",
+        "extractValue": "publishedAt",
+        "location": "mediainfo",
+        "modifier": {
+          "type": "convertDate"
+        },
+        "rank": 19
+      },
+      {
+        "value": "mediaAssetTime",
+        "extractValue": "publishedAt",
+        "location": "mediainfo",
+        "modifier": {
+          "type": "convertTime"
+        },
+        "rank": 21
+      },
+      {
+        "value": "mediaAssetSubscription",
+        "extractValue": "country_rights",
+        "location": "customFields",
+        "modifier": {
+          "type": "comparator",
+          "operator": "==",
+          "value1": "premium",
+          "value2": "standard",
+          "variable": "AU NZ Only"
+        },
+        "rank": 11
+      },
+      {
+        "value": "mediaProgramType",
+        "extractValue": "program_type",
+        "location": "customFields",
+        "modifier": {
+          "type": "addSpace"
+        },
+        "rank": 33
+      },
+      {
+        "value": "mediaAssetPublisherName",
+        "extractValue": "content_provider",
+        "location": "customFields",
+        "rank": 29
+      },
+      {
+        "value": "mediaAdStatus",
+        "extractValue": "no_ads",
+        "location": "customFields",
+        "rank": 37
+      },
+      {
+        "value": "competition",
+        "extractValue": "competition",
+        "location": "customFields",
+        "modifier": {
+          "type": "addSpace"
+        },
+        "rank": 45
+      },
+      {
+        "value": "mediaAssetType",
+        "extractValue": "video",
+        "location": "staticFields",
+        "rank": 7
+      },
+      {
+        "value": "mediaPlayerName",
+        "extractValue": "Brightcove",
+        "location": "staticFields",
+        "rank": 5
+      }
+    ]
+  },
+  "percentsPlayedInterval": 25,
+  "debug": true
+};
     </script>
     <script>
 
