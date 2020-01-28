@@ -20,7 +20,7 @@
 <body>
     <div style="max-width: 960px;">
         <video-js id="player" data-account="6057984922001" data-player="fprFS9RfZ" data-embed="default" controls=""
-            data-video-id="6126719954001" data-playlist-id="" data-application-id="" class="vjs-fluid"></video-js>
+            data-video-id="6127083824001" data-playlist-id="" data-application-id="" class="vjs-fluid"></video-js>
     </div>
     <script src="https://players.brightcove.net/6057984922001/fprFS9RfZ_default/index.min.js"></script>
     </script>
@@ -40,31 +40,37 @@
           "value2": "on demand",
           "variable": 0
         },
-        "rank": 9
+        "rank": 5
+      },
+      {
+        "value": "mediaAssetKeyWords",
+        "extractValue": "mediaAssetKeyWords",
+        "location": "mediainfo",
+        "rank": 21
       },
       {
         "value": "mediaAssetID",
         "extractValue": "id",
         "location": "mediainfo",
-        "rank": 13
+        "rank": 7
       },
       {
         "value": "mediaAssetTitle",
         "extractValue": "name",
         "location": "mediainfo",
-        "rank": 15
+        "rank": 13
       },
       {
         "value": "mediaAssetDuration",
         "extractValue": "duration",
         "location": "mediainfo",
-        "rank": 39
+        "rank": 33
       },
       {
         "value": "mediaAssetDescription",
         "extractValue": "description",
         "location": "mediainfo",
-        "rank": 17
+        "rank": 11
       },
       {
         "value": "filePath",
@@ -75,19 +81,19 @@
           "regexBase64": "XihodHRwfGh0dHBzKTpcL1wvW1x3XGQuOl0r",
           "replaceValue": ""
         },
-        "rank": 25
+        "rank": 19
       },
       {
         "value": "mediaAssetSessionID",
         "extractValue": "session",
         "location": "bcAnalytics_client_defaultParams_",
-        "rank": 14
+        "rank": 9
       },
       {
         "value": "mediaPlayerVersion",
         "extractValue": "platform_version",
         "location": "bcAnalytics_client_defaultParams_",
-        "rank": 6
+        "rank": 3
       },
       {
         "value": "matchSeasonName",
@@ -96,13 +102,13 @@
         "modifier": {
           "type": "addSpace"
         },
-        "rank": 49
+        "rank": 43
       },
       {
         "value": "matchChampionID",
         "extractValue": "match_champion_id",
         "location": "customFields",
-        "rank": 53
+        "rank": 47
       },
       {
         "value": "matchRoundName",
@@ -111,7 +117,7 @@
         "modifier": {
           "type": "addSpace"
         },
-        "rank": 59
+        "rank": 53
       },
       {
         "value": "mediaProgramCategory",
@@ -120,7 +126,7 @@
         "modifier": {
           "type": "addSpace"
         },
-        "rank": 31
+        "rank": 25
       },
       {
         "value": "mediaProgramCollection",
@@ -129,7 +135,7 @@
         "modifier": {
           "type": "addSpace"
         },
-        "rank": 35
+        "rank": 29
       },
       {
         "value": "mediaAssetDate",
@@ -138,7 +144,7 @@
         "modifier": {
           "type": "convertDate"
         },
-        "rank": 19
+        "rank": 14
       },
       {
         "value": "mediaAssetTime",
@@ -147,7 +153,7 @@
         "modifier": {
           "type": "convertTime"
         },
-        "rank": 21
+        "rank": 15
       },
       {
         "value": "mediaAssetSubscription",
@@ -160,7 +166,7 @@
           "value2": "standard",
           "variable": "AU NZ Only"
         },
-        "rank": 11
+        "rank": 6
       },
       {
         "value": "mediaProgramType",
@@ -169,7 +175,7 @@
         "modifier": {
           "type": "addSpace"
         },
-        "rank": 33
+        "rank": 27
       },
       {
         "value": "mediaAssetPublisherName",
@@ -181,7 +187,7 @@
         "value": "mediaAdStatus",
         "extractValue": "no_ads",
         "location": "customFields",
-        "rank": 37
+        "rank": 31
       },
       {
         "value": "competition",
@@ -190,19 +196,26 @@
         "modifier": {
           "type": "addSpace"
         },
-        "rank": 45
+        "rank": 39
       },
       {
         "value": "mediaAssetType",
-        "extractValue": "video",
-        "location": "staticFields",
-        "rank": 7
+        "extractValue": "tags",
+        "location": "mediainfo",
+        "modifier": {
+          "type": "arrayContains",
+          "operator": "==",
+          "value1": "audio",
+          "value2": "video",
+          "variable": "audio"
+        },
+        "rank": 4
       },
       {
         "value": "mediaPlayerName",
         "extractValue": "Brightcove",
         "location": "staticFields",
-        "rank": 5
+        "rank": 2
       }
     ]
   },

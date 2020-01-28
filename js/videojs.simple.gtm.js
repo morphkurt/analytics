@@ -151,9 +151,21 @@ videojs.registerPlugin('simplegtm', function (options) {
         }else if (object['type'] == "convertTime") {
             return convertTime(value);
         }
+        else if (object['type'] == "arrayContains") {
+            return (arrayContains(player.mediainfo['tags'],object['variable'])) ? object['value1'] : object['value2']
+        }
         else {
             return value;
         }
+    }
+
+    function arrayContains(array,variable){
+        let returnVal = false; 
+        console.log(array)
+        array.forEach( v => {
+            if (v == variable ) returnVal = true
+        })
+        return returnVal;
     }
 
     function convertTime(d) {
