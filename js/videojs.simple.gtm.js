@@ -148,21 +148,21 @@ videojs.registerPlugin('simplegtm', function (options) {
         }
         else if (object['type'] == "convertDate") {
             return convertDate(value);
-        }else if (object['type'] == "convertTime") {
+        } else if (object['type'] == "convertTime") {
             return convertTime(value);
         }
         else if (object['type'] == "arrayContains") {
-            return (arrayContains(player.mediainfo['tags'],object['variable'])) ? object['value1'] : object['value2']
+            return (arrayContains(player.mediainfo['tags'], object['variable'])) ? object['value1'] : object['value2']
         }
         else {
             return value;
         }
     }
 
-    function arrayContains(array,variable){
-        let returnVal = false; 
-        array.forEach( v => {
-            if (v == variable ) returnVal = true
+    function arrayContains(array, variable) {
+        let returnVal = false;
+        array.forEach(v => {
+            if (v == variable) returnVal = true
         })
         return returnVal;
     }
@@ -171,7 +171,7 @@ videojs.registerPlugin('simplegtm', function (options) {
         var options = {
             timeZone: 'Australia/Brisbane',
             hour: 'numeric', minute: 'numeric', second: 'numeric',
-           
+
             hour12: false,
             timeZoneName: 'short'
         }
@@ -186,7 +186,7 @@ videojs.registerPlugin('simplegtm', function (options) {
             year: 'numeric', month: 'numeric', day: 'numeric'
         }
         formatter = new Intl.DateTimeFormat('en-AU', options)
-        return formatter.format(new Date(d)).replace(/\//g,'-');
+        return formatter.format(new Date(d)).replace(/\//g, '-');
     }
 
     function ArrNoDupe(a) {
@@ -201,6 +201,7 @@ videojs.registerPlugin('simplegtm', function (options) {
         cut.push(0);
         for (i = 0; i < v.length - 1; i++) {
             let s = v.substring(i, i + 2)
+            if (/[0-9][A-Z]/g.test(v.substring(i, i + 2))) cut.push(i + 1);
             if (/[a-z][A-Z0-9]/g.test(v.substring(i, i + 2))) cut.push(i + 1);
             if (/[A-Z0-9][a-z]/g.test(v.substring(i, i + 2))) cut.push(i);
         }
@@ -209,7 +210,7 @@ videojs.registerPlugin('simplegtm', function (options) {
         for (i = 1; i < uA.length; i++) words.push(v.substring(uA[i - 1], uA[i]))
         var sentence = ''
         words.forEach(w => { sentence += w + " " })
-        return sentence.trim()
+        return sentence.replace(/(AFL)/g, ' $1').replace(/ +(?= )/g,'').trim()
     }
 
 
