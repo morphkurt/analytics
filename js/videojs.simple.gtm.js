@@ -161,7 +161,6 @@ videojs.registerPlugin('simplegtm', function (options) {
 
     function arrayContains(array,variable){
         let returnVal = false; 
-        console.log(array)
         array.forEach( v => {
             if (v == variable ) returnVal = true
         })
