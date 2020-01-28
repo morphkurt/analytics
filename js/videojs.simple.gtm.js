@@ -156,7 +156,7 @@ videojs.registerPlugin('simplegtm', function (options) {
         }
     }
 
-    function convertDate(d) {
+    function convertTime(d) {
         var options = {
             timeZone: 'Australia/Brisbane',
             hour: 'numeric', minute: 'numeric', second: 'numeric',
@@ -168,7 +168,7 @@ videojs.registerPlugin('simplegtm', function (options) {
         return formatter.format(new Date(d));
     }
 
-    function convertTime(d) {
+    function convertDate(d) {
         var options = {
             timeZone: 'Australia/Brisbane',
             literal: '-',
