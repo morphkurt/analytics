@@ -45,6 +45,16 @@ videojs.registerPlugin('simplegtm', function (options) {
                 else if (item['location'] == "staticFields") {
                     _dataLayerArray[item['value']] = item['extractValue']
                 }
+                else if (item['location'] == "dataLayer") {
+                    dataLayer.forEach(d => {
+                        const keys = Object.keys(d)
+                        for (const key of keys) {
+                            if (key == item['extractValue'] && !d[key].length == 0 ){
+                                _dataLayerArray[item['value']] = d[key];
+                            }
+                        }
+                    })
+                }
                 if (item['modifier']) {
                     debug && console.log('++++ Modifying From "' + item['value'] + '" : "' + _dataLayerArray[item['value']] + '"}  +++ ');
                     _dataLayerArray[item['value']] = modify(item['modifier'], _dataLayerArray[item['value']])
@@ -210,7 +220,7 @@ videojs.registerPlugin('simplegtm', function (options) {
         for (i = 1; i < uA.length; i++) words.push(v.substring(uA[i - 1], uA[i]))
         var sentence = ''
         words.forEach(w => { sentence += w + " " })
-        return sentence.replace(/(AFL)/g, ' $1').replace(/ +(?= )/g,'').trim()
+        return sentence.replace(/(AFL)/g, ' $1').replace(/ +(?= )/g, '').trim()
     }
 
 
