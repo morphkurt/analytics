@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://players.brightcove.net/videojs-vr/1/videojs-vr.css">
+
+</head>
+
+
+
+<body>
+    <div style="max-width: 960px;">
+        <video-js data-account="6076300361001" data-player="default" data-embed="default" controls=""
+            data-video-id="6144749888001" data-playlist-id="" data-application-id="" class="vjs-fluid"></video-js>
+    </div>
+
+
+    <script src="https://players.brightcove.net/6076300361001/default_default/index.min.js"></script>
+    </script>
+    <script src="https://players.brightcove.net/videojs-vr/1/videojs-vr.min.js"></script>
+
+
+    <script type="text/javascript">
+        videojs.getPlayer('vjs_video_3').ready(function() {
+          var myPlayer = this;
+          myPlayer.vr({projection: '360'});
+        });
+      </script>
+
+</body>
+
+</html>
