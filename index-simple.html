@@ -6,20 +6,19 @@
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PSN2PW8');</script>
+})(window,document,'script','dataLayer','GTM-5JWKKMT');</script>
 <!-- End Google Tag Manager -->
     <script>
         window.dataLayer = window.dataLayer || [];
     </script>
 </head>
 
-
 <body>
     <div style="max-width: 960px;">
-        <video-js id="player" data-account="6057984922001" data-player="fprFS9RfZ" data-embed="default" controls=""
-            data-video-id="6122702238001" data-playlist-id="" data-application-id="" class="vjs-fluid"></video-js>
+        <video-js id="player" data-account="6057984925001" data-player="TpIm6pBtd" data-embed="default" controls=""
+            data-video-id="6155718914001" data-playlist-id="" data-application-id="" class="vjs-fluid"></video-js>
     </div>
-    <script src="https://players.brightcove.net/6057984922001/fprFS9RfZ_default/index.min.js"></script>
+    <script src="https://players.brightcove.net/6057984922001/TpIm6pBtd_default/index.min.js"></script>
     </script>
     <script type="text/javascript" src="js/videojs.simple.gtm.js"></script>
     <script type="text/javascript">
@@ -64,8 +63,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "rank": 33
       },
       {
-        "value": "mediaChannelName",
-        "extractValue": "mediaChannelName",
+        "value": "AssetRef",
+        "extractValue": "asset_ref",
+        "location": "customFields",
+        "rank": 37
+      },
+      {
+        "value": "Channel",
+        "extractValue": "channel",
         "location": "customFields",
         "rank": 37
       },
@@ -99,180 +104,52 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "rank": 3
       },
       {
-        "value": "matchSeasonName",
-        "extractValue": "season_name",
+        "value": "Competition",
+        "extractValue": "competition",
         "location": "customFields",
-        "modifier": {
-          "type": "addSpace"
-        },
         "rank": 43
       },
       {
-        "value": "matchSeasonYear",
-        "extractValue": "matchSeasonYear",
-        "location": "dataLayer",
-        "rank": 45
-      },
-      {
-        "value": "matchName",
-        "extractValue": "matchName",
-        "location": "dataLayer",
-        "rank": 49
-      },
-      {
-        "value": "matchRoundChampionID",
-        "extractValue": "matchRoundChampionID",
+        "value": "filehash",
+        "extractValue": "filehash",
         "location": "customFields",
         "rank": 51
       },
       {
-        "value": "matchChampionID",
-        "extractValue": "match_champion_id",
-        "location": "dataLayer",
+        "value": "Match",
+        "extractValue": "Match",
+        "location": "customFields",
         "rank": 47
       },
       {
-        "value": "mediaAssetImagePath",
-        "extractValue": "mediaAssetImagePath",
+        "value": "PlayerIds",
+        "extractValue": "player_ids",
         "location": "customFields",
         "rank": 17
       },
       {
-        "value": "matchStatus",
-        "extractValue": "matchStatus",
-        "location": "dataLayer",
+        "value": "ProgramCategory",
+        "extractValue": "program_category",
+        "location": "customFields",
         "rank": 55
       },
       {
-        "value": "venueID",
-        "extractValue": "venueID",
-        "location": "dataLayer",
+        "value": "ProgramType",
+        "extractValue": "program_type",
+        "location": "customFields",
         "rank": 57
       },
       {
-        "value": "venueName",
-        "extractValue": "venueName",
-        "location": "dataLayer",
+        "value": "Tags",
+        "extractValue": "tags",
+        "location": "customFields",
         "rank": 59
       },
       {
-        "value": "venueState",
-        "extractValue": "venueState",
-        "location": "dataLayer",
+        "value": "Websites",
+        "extractValue": "web_sites",
+        "location": "customFields",
         "rank": 61
-      },
-      {
-        "value": "matchRoundName",
-        "extractValue": "round_name",
-        "location": "customFields",
-        "modifier": {
-          "type": "addSpace"
-        },
-        "rank": 53
-      },
-      {
-        "value": "mediaProgramCategory",
-        "extractValue": "program_category",
-        "location": "customFields",
-        "modifier": {
-          "type": "addSpace"
-        },
-        "rank": 25
-      },
-      {
-        "value": "mediaProgramCollection",
-        "extractValue": "program_collection",
-        "location": "customFields",
-        "modifier": {
-          "type": "addSpace"
-        },
-        "rank": 29
-      },
-      {
-        "value": "mediaAssetDate",
-        "extractValue": "publishedAt",
-        "location": "mediainfo",
-        "modifier": {
-          "type": "convertDate"
-        },
-        "rank": 14
-      },
-      {
-        "value": "mediaAssetTime",
-        "extractValue": "publishedAt",
-        "location": "mediainfo",
-        "modifier": {
-          "type": "convertTime"
-        },
-        "rank": 15
-      },
-      {
-        "value": "mediaAssetSubscription",
-        "extractValue": "country_rights",
-        "location": "customFields",
-        "modifier": {
-          "type": "comparator",
-          "operator": "==",
-          "value1": "premium",
-          "value2": "standard",
-          "variable": "AU NZ Only"
-        },
-        "rank": 6
-      },
-      {
-        "value": "mediaProgramType",
-        "extractValue": "program_type",
-        "location": "customFields",
-        "modifier": {
-          "type": "addSpace"
-        },
-        "rank": 27
-      },
-      {
-        "value": "mediaAssetPublisherName",
-        "extractValue": "content_provider",
-        "location": "customFields",
-        "rank": 23
-      },
-      {
-        "value": "matchSeasonChampionID",
-        "extractValue": "matchSeasonChampionID",
-        "location": "customFields",
-        "rank": 41
-      },
-      {
-        "value": "mediaAdStatus",
-        "extractValue": "no_ads",
-        "location": "customFields",
-        "rank": 31
-      },
-      {
-        "value": "competition",
-        "extractValue": "competition",
-        "location": "customFields",
-        "modifier": {
-          "type": "addSpace"
-        },
-        "rank": 39
-      },
-      {
-        "value": "mediaAssetType",
-        "extractValue": "tags",
-        "location": "mediainfo",
-        "modifier": {
-          "type": "arrayContains",
-          "operator": "==",
-          "value1": "audio",
-          "value2": "video",
-          "variable": "audio"
-        },
-        "rank": 4
-      },
-      {
-        "value": "mediaPlayerName",
-        "extractValue": "Brightcove",
-        "location": "staticFields",
-        "rank": 2
       }
     ]
   },
